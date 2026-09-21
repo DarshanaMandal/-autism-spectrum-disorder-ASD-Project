@@ -1,0 +1,2232 @@
+[
+  {
+    "video_id": "v_ArmFlapping_01",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=I7fdv1q9-m8",
+    "duration_sec": 46.0,
+    "height": 360,
+    "width": 480,
+    "frames": 1365,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_01_b_01",
+        "category": "ArmFlapping",
+        "time_str": "18:24",
+        "start_sec": 18.0,
+        "end_sec": 24.0,
+        "duration_sec": 6.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_01_b_02",
+        "category": "HeadBanging",
+        "time_str": "27:32",
+        "start_sec": 27.0,
+        "end_sec": 32.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "full"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_02",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=hKf-IwHM6TI",
+    "duration_sec": 51.0,
+    "height": 360,
+    "width": 204,
+    "frames": 1539,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_02_b_01",
+        "category": "ArmFlapping",
+        "time_str": "11:16",
+        "start_sec": 11.0,
+        "end_sec": 16.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_02_b_02",
+        "category": "ArmFlapping",
+        "time_str": "19:23",
+        "start_sec": 19.0,
+        "end_sec": 23.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_02_b_03",
+        "category": "ArmFlapping",
+        "time_str": "29:33",
+        "start_sec": 29.0,
+        "end_sec": 33.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_03",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=Z2kfvB4lv7A",
+    "duration_sec": 62.0,
+    "height": 360,
+    "width": 480,
+    "frames": 1857,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_03_b_01",
+        "category": "ArmFlapping",
+        "time_str": "22:27",
+        "start_sec": 22.0,
+        "end_sec": 27.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_04",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=SOc13pnf-Dc",
+    "duration_sec": 200.0,
+    "height": 360,
+    "width": 640,
+    "frames": 5987,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_04_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0105:0125",
+        "start_sec": 105.0,
+        "end_sec": 125.0,
+        "duration_sec": 20.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_04_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0212:0220",
+        "start_sec": 212.0,
+        "end_sec": 220.0,
+        "duration_sec": 8.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_05",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=8vFUIFEfRpA",
+    "duration_sec": 35.0,
+    "height": 360,
+    "width": 640,
+    "frames": 525,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_05_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0002:0014",
+        "start_sec": 2.0,
+        "end_sec": 14.0,
+        "duration_sec": 12.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_06",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=ehlLfMossUY",
+    "duration_sec": 106.0,
+    "height": 360,
+    "width": 204,
+    "frames": 3174,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_06_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0027:0030",
+        "start_sec": 27.0,
+        "end_sec": 30.0,
+        "duration_sec": 3.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_06_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0040:0043",
+        "start_sec": 40.0,
+        "end_sec": 43.0,
+        "duration_sec": 3.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_06_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0140:0142",
+        "start_sec": 140.0,
+        "end_sec": 142.0,
+        "duration_sec": 2.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_07",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=T9rbit_oiJA",
+    "duration_sec": 46.0,
+    "height": 360,
+    "width": 640,
+    "frames": 1388,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_07_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0004:0010",
+        "start_sec": 4.0,
+        "end_sec": 10.0,
+        "duration_sec": 6.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_07_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0015:0020",
+        "start_sec": 15.0,
+        "end_sec": 20.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_08",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=5Ps9iE8mPqY",
+    "duration_sec": 253.0,
+    "height": 240,
+    "width": 320,
+    "frames": 6084,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_08_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0018:0021",
+        "start_sec": 18.0,
+        "end_sec": 21.0,
+        "duration_sec": 3.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_08_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0047:0051",
+        "start_sec": 47.0,
+        "end_sec": 51.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_08_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0110:0117",
+        "start_sec": 110.0,
+        "end_sec": 117.0,
+        "duration_sec": 7.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_08_b_04",
+        "category": "ArmFlapping",
+        "time_str": "0130:0148",
+        "start_sec": 130.0,
+        "end_sec": 148.0,
+        "duration_sec": 18.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_08_b_05",
+        "category": "ArmFlapping",
+        "time_str": "0202:0214",
+        "start_sec": 202.0,
+        "end_sec": 214.0,
+        "duration_sec": 12.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_08_b_06",
+        "category": "ArmFlapping",
+        "time_str": "0315:0320",
+        "start_sec": 315.0,
+        "end_sec": 320.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_08_b_07",
+        "category": "ArmFlapping",
+        "time_str": "0338:0343",
+        "start_sec": 338.0,
+        "end_sec": 343.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_09",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=C_O8vyrSt0Q",
+    "duration_sec": 169.0,
+    "height": 360,
+    "width": 480,
+    "frames": 5040,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_09_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0005:0015",
+        "start_sec": 5.0,
+        "end_sec": 15.0,
+        "duration_sec": 10.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_09_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0030:0044",
+        "start_sec": 30.0,
+        "end_sec": 44.0,
+        "duration_sec": 14.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_09_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0055:0110",
+        "start_sec": 55.0,
+        "end_sec": 110.0,
+        "duration_sec": 55.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_09_b_04",
+        "category": "ArmFlapping",
+        "time_str": "0125:0140",
+        "start_sec": 125.0,
+        "end_sec": 140.0,
+        "duration_sec": 15.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_09_b_05",
+        "category": "ArmFlapping",
+        "time_str": "0205:0219",
+        "start_sec": 205.0,
+        "end_sec": 219.0,
+        "duration_sec": 14.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_10",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=iDuAugAykcc",
+    "duration_sec": 134.0,
+    "height": 240,
+    "width": 320,
+    "frames": 3216,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_10_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0018:0027",
+        "start_sec": 18.0,
+        "end_sec": 27.0,
+        "duration_sec": 9.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_10_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0033:0037",
+        "start_sec": 33.0,
+        "end_sec": 37.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_10_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0050:0057",
+        "start_sec": 50.0,
+        "end_sec": 57.0,
+        "duration_sec": 7.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_10_b_04",
+        "category": "ArmFlapping",
+        "time_str": "0108:0125",
+        "start_sec": 108.0,
+        "end_sec": 125.0,
+        "duration_sec": 17.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_11",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=WRGUUOZ5_wA",
+    "duration_sec": 138.0,
+    "height": 360,
+    "width": 640,
+    "frames": 3319,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_11_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0100:0107",
+        "start_sec": 100.0,
+        "end_sec": 107.0,
+        "duration_sec": 7.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_11_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0100:0107",
+        "start_sec": 100.0,
+        "end_sec": 107.0,
+        "duration_sec": 7.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_12",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=mnBWOI4LuKw",
+    "duration_sec": 165.0,
+    "height": 360,
+    "width": 480,
+    "frames": 4912,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_12_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0003:0030",
+        "start_sec": 3.0,
+        "end_sec": 30.0,
+        "duration_sec": 27.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_12_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0114:0210",
+        "start_sec": 114.0,
+        "end_sec": 210.0,
+        "duration_sec": 96.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_12_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0214:0235",
+        "start_sec": 214.0,
+        "end_sec": 235.0,
+        "duration_sec": 21.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_13",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=3Oh_Lmehb6c",
+    "duration_sec": 86.0,
+    "height": 360,
+    "width": 640,
+    "frames": 2586,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_13_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0019:0022",
+        "start_sec": 19.0,
+        "end_sec": 22.0,
+        "duration_sec": 3.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_13_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0040:0051",
+        "start_sec": 40.0,
+        "end_sec": 51.0,
+        "duration_sec": 11.0,
+        "intensity": "low",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_14",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=pz1nIbRWb2M",
+    "duration_sec": 57.0,
+    "height": 240,
+    "width": 320,
+    "frames": 1403,
+    "persons": 4,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_14_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0003:0007",
+        "start_sec": 3.0,
+        "end_sec": 7.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_15",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=nGoMpqcYcOg",
+    "duration_sec": 39.0,
+    "height": 360,
+    "width": 640,
+    "frames": 1147,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_15_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0017:0023",
+        "start_sec": 17.0,
+        "end_sec": 23.0,
+        "duration_sec": 6.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_15_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0032:0037",
+        "start_sec": 32.0,
+        "end_sec": 37.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_16",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=5sgfS0SSh8o",
+    "duration_sec": 54.0,
+    "height": 360,
+    "width": 202,
+    "frames": 1604,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_16_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0032:0046",
+        "start_sec": 32.0,
+        "end_sec": 46.0,
+        "duration_sec": 14.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_17",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=vtVnrV_jog0",
+    "duration_sec": 46.0,
+    "height": 360,
+    "width": 640,
+    "frames": 1091,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_17_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0002:0014",
+        "start_sec": 2.0,
+        "end_sec": 14.0,
+        "duration_sec": 12.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_17_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0019:0023",
+        "start_sec": 19.0,
+        "end_sec": 23.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_17_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0036:0039",
+        "start_sec": 36.0,
+        "end_sec": 39.0,
+        "duration_sec": 3.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_18",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=JM8BHjJTSFM",
+    "duration_sec": 89.0,
+    "height": 360,
+    "width": 480,
+    "frames": 2652,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_18_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0003:0007",
+        "start_sec": 3.0,
+        "end_sec": 7.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_18_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0040:0050",
+        "start_sec": 40.0,
+        "end_sec": 50.0,
+        "duration_sec": 10.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_19",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=1vRklwIBC28",
+    "duration_sec": 261.0,
+    "height": 360,
+    "width": 480,
+    "frames": 7806,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_19_b_01",
+        "category": "HeadBanging",
+        "time_str": "0100:0134",
+        "start_sec": 100.0,
+        "end_sec": 134.0,
+        "duration_sec": 34.0,
+        "intensity": "high",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_ArmFlapping_19_b_02",
+        "category": "HeadBanging",
+        "time_str": "0140:0200",
+        "start_sec": 140.0,
+        "end_sec": 200.0,
+        "duration_sec": 60.0,
+        "intensity": "high",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_ArmFlapping_19_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0255:0310",
+        "start_sec": 255.0,
+        "end_sec": 310.0,
+        "duration_sec": 55.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_19_b_04",
+        "category": "ArmFlapping",
+        "time_str": "0325:0339",
+        "start_sec": 325.0,
+        "end_sec": 339.0,
+        "duration_sec": 14.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_20",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=MOt-6FAEP_g",
+    "duration_sec": 110.0,
+    "height": 240,
+    "width": 320,
+    "frames": 3321,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_20_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0134:0138",
+        "start_sec": 134.0,
+        "end_sec": 138.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_21",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=AQ-jO6O5gow",
+    "duration_sec": 23.0,
+    "height": 360,
+    "width": 480,
+    "frames": 672,
+    "persons": 8,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_21_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0007:0016",
+        "start_sec": 7.0,
+        "end_sec": 16.0,
+        "duration_sec": 9.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_22",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=UxpQpWzhOx0",
+    "duration_sec": 122.0,
+    "height": 288,
+    "width": 352,
+    "frames": 3651,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_22_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0002:0006",
+        "start_sec": 2.0,
+        "end_sec": 6.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_22_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0041:0055",
+        "start_sec": 41.0,
+        "end_sec": 55.0,
+        "duration_sec": 14.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_22_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0100:0129",
+        "start_sec": 100.0,
+        "end_sec": 129.0,
+        "duration_sec": 29.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_22_b_04",
+        "category": "ArmFlapping",
+        "time_str": "0134:0142",
+        "start_sec": 134.0,
+        "end_sec": 142.0,
+        "duration_sec": 8.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_22_b_05",
+        "category": "ArmFlapping",
+        "time_str": "0150:0158",
+        "start_sec": 150.0,
+        "end_sec": 158.0,
+        "duration_sec": 8.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_23",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=xeKKMkVgNPU",
+    "duration_sec": 107.0,
+    "height": 360,
+    "width": 540,
+    "frames": 2205,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_23_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0003:0009",
+        "start_sec": 3.0,
+        "end_sec": 9.0,
+        "duration_sec": 6.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      },
+      {
+        "segment_id": "v_ArmFlapping_23_b_02",
+        "category": "Spinning",
+        "time_str": "0049:0057",
+        "start_sec": 49.0,
+        "end_sec": 57.0,
+        "duration_sec": 8.0,
+        "intensity": "low",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_ArmFlapping_23_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0100:0110",
+        "start_sec": 100.0,
+        "end_sec": 110.0,
+        "duration_sec": 10.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_24",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=AGmXuSY4gx0",
+    "duration_sec": 41.0,
+    "height": 360,
+    "width": 480,
+    "frames": 1034,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_24_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0008:0015",
+        "start_sec": 8.0,
+        "end_sec": 15.0,
+        "duration_sec": 7.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_ArmFlapping_25",
+    "primary_category": "ArmFlapping",
+    "url": "http://www.youtube.com/watch?v=I2rfPPinMHk",
+    "duration_sec": 23.0,
+    "height": 360,
+    "width": 640,
+    "frames": 704,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_ArmFlapping_25_b_01",
+        "category": "ArmFlapping",
+        "time_str": "0004:0008",
+        "start_sec": 4.0,
+        "end_sec": 8.0,
+        "duration_sec": 4.0,
+        "intensity": "high",
+        "bodypart": "hand"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_01",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=yCaymsrcNwA",
+    "duration_sec": 31.0,
+    "height": 144,
+    "width": 192,
+    "frames": 920,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_01_b_01",
+        "category": "HeadBanging",
+        "time_str": "0001:0004",
+        "start_sec": 1.0,
+        "end_sec": 4.0,
+        "duration_sec": 3.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_02",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=a5BuwkqtIa0",
+    "duration_sec": 57.0,
+    "height": 360,
+    "width": 480,
+    "frames": 1693,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_02_b_01",
+        "category": "HeadBanging",
+        "time_str": "0004:0009",
+        "start_sec": 4.0,
+        "end_sec": 9.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_HeadBanging_02_b_02",
+        "category": "HeadBanging",
+        "time_str": "0036:0044",
+        "start_sec": 36.0,
+        "end_sec": 44.0,
+        "duration_sec": 8.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_03",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=k9MJ4pDQQ74",
+    "duration_sec": 15.0,
+    "height": 144,
+    "width": 192,
+    "frames": 457,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_03_b_01",
+        "category": "HeadBanging",
+        "time_str": "0006:0014",
+        "start_sec": 6.0,
+        "end_sec": 14.0,
+        "duration_sec": 8.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_04",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=pzPhXbGEpSo",
+    "duration_sec": 54.0,
+    "height": 360,
+    "width": 480,
+    "frames": 1588,
+    "persons": 3,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_04_b_01",
+        "category": "HeadBanging",
+        "time_str": "0016:0030",
+        "start_sec": 16.0,
+        "end_sec": 30.0,
+        "duration_sec": 14.0,
+        "intensity": "high",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_HeadBanging_04_b_02",
+        "category": "HeadBanging",
+        "time_str": "0034:0039",
+        "start_sec": 34.0,
+        "end_sec": 39.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_05",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=Lex0gIMd73g",
+    "duration_sec": 20.0,
+    "height": 360,
+    "width": 204,
+    "frames": 582,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_05_b_01",
+        "category": "HeadBanging",
+        "time_str": "0003:0017",
+        "start_sec": 3.0,
+        "end_sec": 17.0,
+        "duration_sec": 14.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_06",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=WLtorzPESbc",
+    "duration_sec": 23.0,
+    "height": 360,
+    "width": 480,
+    "frames": 691,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_06_b_01",
+        "category": "HeadBanging",
+        "time_str": "0010:0019",
+        "start_sec": 10.0,
+        "end_sec": 19.0,
+        "duration_sec": 9.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_07",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=nwLp0k1xa0o",
+    "duration_sec": 180.0,
+    "height": 144,
+    "width": 176,
+    "frames": 2708,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_07_b_01",
+        "category": "HeadBanging",
+        "time_str": "0055:0104",
+        "start_sec": 55.0,
+        "end_sec": 104.0,
+        "duration_sec": 49.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_08",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=Pqd9Vu-juPI",
+    "duration_sec": 161.0,
+    "height": 240,
+    "width": 320,
+    "frames": 6695,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_08_b_01",
+        "category": "HeadBanging",
+        "time_str": "0125:0135",
+        "start_sec": 125.0,
+        "end_sec": 135.0,
+        "duration_sec": 10.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_09",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=WcsZ9eMQ5Zs",
+    "duration_sec": 14.0,
+    "height": 240,
+    "width": 320,
+    "frames": 208,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_09_b_01",
+        "category": "HeadBanging",
+        "time_str": "0002:0010",
+        "start_sec": 2.0,
+        "end_sec": 10.0,
+        "duration_sec": 8.0,
+        "intensity": "low",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_10",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=aNaC46cUOJo",
+    "duration_sec": 46.0,
+    "height": 240,
+    "width": 320,
+    "frames": 1372,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_10_b_01",
+        "category": "HeadBanging",
+        "time_str": "0016:0022",
+        "start_sec": 16.0,
+        "end_sec": 22.0,
+        "duration_sec": 6.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_11",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=Pa-pdBF4FFA",
+    "duration_sec": 76.0,
+    "height": 360,
+    "width": 640,
+    "frames": 2280,
+    "persons": 3,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_11_b_01",
+        "category": "HeadBanging",
+        "time_str": "0036:0039",
+        "start_sec": 36.0,
+        "end_sec": 39.0,
+        "duration_sec": 3.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_12",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=5WTHMIJ_61I",
+    "duration_sec": 72.0,
+    "height": 360,
+    "width": 204,
+    "frames": 2157,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_12_b_01",
+        "category": "HeadBanging",
+        "time_str": "0002:0012",
+        "start_sec": 2.0,
+        "end_sec": 12.0,
+        "duration_sec": 10.0,
+        "intensity": "low",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_13",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=B9hYEIjsHDA",
+    "duration_sec": 30.0,
+    "height": 360,
+    "width": 640,
+    "frames": 703,
+    "persons": 3,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_13_b_01",
+        "category": "HeadBanging",
+        "time_str": "0002:0020",
+        "start_sec": 2.0,
+        "end_sec": 20.0,
+        "duration_sec": 18.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_14",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=0Vk9itex_ds",
+    "duration_sec": 33.0,
+    "height": 360,
+    "width": 204,
+    "frames": 980,
+    "persons": 3,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_14_b_01",
+        "category": "HeadBanging",
+        "time_str": "0004:0030",
+        "start_sec": 4.0,
+        "end_sec": 30.0,
+        "duration_sec": 26.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_15",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=9zOrUA7Kn4o",
+    "duration_sec": 53.0,
+    "height": 240,
+    "width": 320,
+    "frames": 1460,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_15_b_01",
+        "category": "HeadBanging",
+        "time_str": "0001:0023",
+        "start_sec": 1.0,
+        "end_sec": 23.0,
+        "duration_sec": 22.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_16",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=Lw-MsQ2k6ZQ",
+    "duration_sec": 61.0,
+    "height": 360,
+    "width": 204,
+    "frames": 1819,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_16_b_01",
+        "category": "HeadBanging",
+        "time_str": "0010:0017",
+        "start_sec": 10.0,
+        "end_sec": 17.0,
+        "duration_sec": 7.0,
+        "intensity": "low",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_17",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=8SrUO-NdSZU",
+    "duration_sec": 109.0,
+    "height": 360,
+    "width": 480,
+    "frames": 3250,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_17_b_01",
+        "category": "HeadBanging",
+        "time_str": "0002:0058",
+        "start_sec": 2.0,
+        "end_sec": 58.0,
+        "duration_sec": 56.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_18",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=TVMWW9SejgI",
+    "duration_sec": 26.0,
+    "height": 240,
+    "width": 320,
+    "frames": 1012,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_18_b_01",
+        "category": "HeadBanging",
+        "time_str": "0001:0015",
+        "start_sec": 1.0,
+        "end_sec": 15.0,
+        "duration_sec": 14.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_19",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=I38WtUMuQwM",
+    "duration_sec": 243.0,
+    "height": 360,
+    "width": 480,
+    "frames": 7290,
+    "persons": 5,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_19_b_01",
+        "category": "HeadBanging",
+        "time_str": "0030:0040",
+        "start_sec": 30.0,
+        "end_sec": 40.0,
+        "duration_sec": 10.0,
+        "intensity": "high",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_HeadBanging_19_b_02",
+        "category": "ArmFlapping",
+        "time_str": "0204:0230",
+        "start_sec": 204.0,
+        "end_sec": 230.0,
+        "duration_sec": 26.0,
+        "intensity": "high",
+        "bodypart": "arm"
+      },
+      {
+        "segment_id": "v_HeadBanging_19_b_03",
+        "category": "ArmFlapping",
+        "time_str": "0256:0307",
+        "start_sec": 256.0,
+        "end_sec": 307.0,
+        "duration_sec": 51.0,
+        "intensity": "high",
+        "bodypart": "arm"
+      },
+      {
+        "segment_id": "v_HeadBanging_19_b_04",
+        "category": "ArmFlapping",
+        "time_str": "0326:0331",
+        "start_sec": 326.0,
+        "end_sec": 331.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "arm"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_20",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=yMgx2lVjf5I",
+    "duration_sec": 58.0,
+    "height": 360,
+    "width": 480,
+    "frames": 1726,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_20_b_01",
+        "category": "HeadBanging",
+        "time_str": "0001:0007",
+        "start_sec": 1.0,
+        "end_sec": 7.0,
+        "duration_sec": 6.0,
+        "intensity": "high",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_HeadBanging_20_b_02",
+        "category": "HeadBanging",
+        "time_str": "0018:0025",
+        "start_sec": 18.0,
+        "end_sec": 25.0,
+        "duration_sec": 7.0,
+        "intensity": "high",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_HeadBanging_20_b_03",
+        "category": "HeadBanging",
+        "time_str": "0036:0050",
+        "start_sec": 36.0,
+        "end_sec": 50.0,
+        "duration_sec": 14.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_21",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=BUAFdqrw4fA",
+    "duration_sec": 90.0,
+    "height": 144,
+    "width": 256,
+    "frames": 1337,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_21_b_01",
+        "category": "HeadBanging",
+        "time_str": "0008:0018",
+        "start_sec": 8.0,
+        "end_sec": 18.0,
+        "duration_sec": 10.0,
+        "intensity": "low",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_HeadBanging_21_b_02",
+        "category": "HeadBanging",
+        "time_str": "0020:0044",
+        "start_sec": 20.0,
+        "end_sec": 44.0,
+        "duration_sec": 24.0,
+        "intensity": "low",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_HeadBanging_21_b_03",
+        "category": "HeadBanging",
+        "time_str": "0054:0123",
+        "start_sec": 54.0,
+        "end_sec": 123.0,
+        "duration_sec": 69.0,
+        "intensity": "low",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_22",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=6sR-8llWl_s",
+    "duration_sec": 53.0,
+    "height": 360,
+    "width": 216,
+    "frames": 1769,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_22_b_01",
+        "category": "HeadBanging",
+        "time_str": "0009:0026",
+        "start_sec": 9.0,
+        "end_sec": 26.0,
+        "duration_sec": 17.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_23",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=w96PxUcoo58",
+    "duration_sec": 14.0,
+    "height": 360,
+    "width": 480,
+    "frames": 392,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_23_b_01",
+        "category": "HeadBanging",
+        "time_str": "0005:0010",
+        "start_sec": 5.0,
+        "end_sec": 10.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_24",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=hX3sIO2wc1s",
+    "duration_sec": 16.0,
+    "height": 360,
+    "width": 270,
+    "frames": 458,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_24_b_01",
+        "category": "HeadBanging",
+        "time_str": "0003:0010",
+        "start_sec": 3.0,
+        "end_sec": 10.0,
+        "duration_sec": 7.0,
+        "intensity": "low",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_HeadBanging_25",
+    "primary_category": "HeadBanging",
+    "url": "http://www.youtube.com/watch?v=zuoD4tEtYyk",
+    "duration_sec": 22.0,
+    "height": 288,
+    "width": 352,
+    "frames": 321,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_HeadBanging_25_b_01",
+        "category": "HeadBanging",
+        "time_str": "0001:0020",
+        "start_sec": 1.0,
+        "end_sec": 20.0,
+        "duration_sec": 19.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_01",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=uNpUNkjNreg",
+    "duration_sec": 149.0,
+    "height": 240,
+    "width": 320,
+    "frames": 4447,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_01_b_01",
+        "category": "Spinning",
+        "time_str": "0108:0123",
+        "start_sec": 108.0,
+        "end_sec": 123.0,
+        "duration_sec": 15.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_02",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=sAgAvYT3D8s",
+    "duration_sec": 96.0,
+    "height": 360,
+    "width": 480,
+    "frames": 2854,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_02_b_01",
+        "category": "Spinning",
+        "time_str": "0010:0020",
+        "start_sec": 10.0,
+        "end_sec": 20.0,
+        "duration_sec": 10.0,
+        "intensity": "low",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_03",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=Pqd9Vu-juPI",
+    "duration_sec": 161.0,
+    "height": 240,
+    "width": 320,
+    "frames": 6695,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_03_b_01",
+        "category": "Spinning",
+        "time_str": "0010:0015",
+        "start_sec": 10.0,
+        "end_sec": 15.0,
+        "duration_sec": 5.0,
+        "intensity": "high",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_04",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=Gt-WMpTP7IE",
+    "duration_sec": 86.0,
+    "height": 360,
+    "width": 640,
+    "frames": 2051,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_04_b_01",
+        "category": "Spinning",
+        "time_str": "0001:0110",
+        "start_sec": 1.0,
+        "end_sec": 110.0,
+        "duration_sec": 109.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_05",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=arn5UCMLlBo",
+    "duration_sec": 19.0,
+    "height": 240,
+    "width": 320,
+    "frames": 191,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_05_b_01",
+        "category": "Spinning",
+        "time_str": "0002:0015",
+        "start_sec": 2.0,
+        "end_sec": 15.0,
+        "duration_sec": 13.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_06",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=cxqsde-6V-c",
+    "duration_sec": 40.0,
+    "height": 360,
+    "width": 640,
+    "frames": 1179,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_06_b_01",
+        "category": "Spinning",
+        "time_str": "0001:0020",
+        "start_sec": 1.0,
+        "end_sec": 20.0,
+        "duration_sec": 19.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_07",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=2AS14wxMB-A",
+    "duration_sec": 30.0,
+    "height": 360,
+    "width": 202,
+    "frames": 682,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_07_b_01",
+        "category": "Spinning",
+        "time_str": "0006-0018",
+        "start_sec": 6.0,
+        "end_sec": 18.0,
+        "duration_sec": 12.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_08",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=5MS6VZwZDi0",
+    "duration_sec": 81.0,
+    "height": 240,
+    "width": 320,
+    "frames": 808,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_08_b_01",
+        "category": "Spinning",
+        "time_str": "0002-0059",
+        "start_sec": 2.0,
+        "end_sec": 59.0,
+        "duration_sec": 57.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_09",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=oukupxRUA84",
+    "duration_sec": 69.0,
+    "height": 320,
+    "width": 568,
+    "frames": 2066,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_09_b_01",
+        "category": "Spinning",
+        "time_str": "0004-0012",
+        "start_sec": 4.0,
+        "end_sec": 12.0,
+        "duration_sec": 8.0,
+        "intensity": "high",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_09_b_02",
+        "category": "Spinning",
+        "time_str": "0028-0047",
+        "start_sec": 28.0,
+        "end_sec": 47.0,
+        "duration_sec": 19.0,
+        "intensity": "high",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_09_b_03",
+        "category": "Spinning",
+        "time_str": "0058-0104",
+        "start_sec": 58.0,
+        "end_sec": 104.0,
+        "duration_sec": 46.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_10",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=uWgI1w2fQhs",
+    "duration_sec": 43.0,
+    "height": 360,
+    "width": 480,
+    "frames": 1270,
+    "persons": 3,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_10_b_01",
+        "category": "Spinning",
+        "time_str": "0003-0028",
+        "start_sec": 3.0,
+        "end_sec": 28.0,
+        "duration_sec": 25.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_11",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=VAMZwnfAHyY",
+    "duration_sec": 34.0,
+    "height": 360,
+    "width": 640,
+    "frames": 505,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_11_b_01",
+        "category": "Spinning",
+        "time_str": "0003-0020",
+        "start_sec": 3.0,
+        "end_sec": 20.0,
+        "duration_sec": 17.0,
+        "intensity": "low",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_12",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=ZHJr17Q4384",
+    "duration_sec": 115.0,
+    "height": 360,
+    "width": 204,
+    "frames": 3424,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_12_b_01",
+        "category": "Spinning",
+        "time_str": "0002-0150",
+        "start_sec": 2.0,
+        "end_sec": 150.0,
+        "duration_sec": 148.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_13",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=5BVFjqo0FUY",
+    "duration_sec": 207.0,
+    "height": 360,
+    "width": 480,
+    "frames": 6185,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_13_b_01",
+        "category": "Spinning",
+        "time_str": "0001-0024",
+        "start_sec": 1.0,
+        "end_sec": 24.0,
+        "duration_sec": 23.0,
+        "intensity": "high",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_13_b_02",
+        "category": "Spinning",
+        "time_str": "0036-0157",
+        "start_sec": 36.0,
+        "end_sec": 157.0,
+        "duration_sec": 121.0,
+        "intensity": "high",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_13_b_03",
+        "category": "Spinning",
+        "time_str": "0205-0245",
+        "start_sec": 205.0,
+        "end_sec": 245.0,
+        "duration_sec": 40.0,
+        "intensity": "high",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_13_b_04",
+        "category": "Spinning",
+        "time_str": "0300-0319",
+        "start_sec": 300.0,
+        "end_sec": 319.0,
+        "duration_sec": 19.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_14",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=pgj_LKf6jL4",
+    "duration_sec": 78.0,
+    "height": 360,
+    "width": 480,
+    "frames": 2327,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_14_b_01",
+        "category": "Spinning",
+        "time_str": "0051-0058",
+        "start_sec": 51.0,
+        "end_sec": 58.0,
+        "duration_sec": 7.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_15",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=gKED6S0eGYA",
+    "duration_sec": 26.0,
+    "height": 360,
+    "width": 480,
+    "frames": 754,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_15_b_01",
+        "category": "Spinning",
+        "time_str": "0001:0010",
+        "start_sec": 1.0,
+        "end_sec": 10.0,
+        "duration_sec": 9.0,
+        "intensity": "low",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_16",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=NDcUGYlTy_4",
+    "duration_sec": 127.0,
+    "height": 480,
+    "width": 360,
+    "frames": 2024,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_16_b_01",
+        "category": "Spinning",
+        "time_str": "0006:0012",
+        "start_sec": 6.0,
+        "end_sec": 12.0,
+        "duration_sec": 6.0,
+        "intensity": "high",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_16_b_02",
+        "category": "Spinning",
+        "time_str": "0115:0135",
+        "start_sec": 115.0,
+        "end_sec": 135.0,
+        "duration_sec": 20.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_17",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=wu5fgT-LkHs",
+    "duration_sec": 121.0,
+    "height": 360,
+    "width": 640,
+    "frames": 3600,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_17_b_01",
+        "category": "Spinning",
+        "time_str": "0002:0020",
+        "start_sec": 2.0,
+        "end_sec": 20.0,
+        "duration_sec": 18.0,
+        "intensity": "low",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_17_b_02",
+        "category": "Spinning",
+        "time_str": "0030:0103",
+        "start_sec": 30.0,
+        "end_sec": 103.0,
+        "duration_sec": 73.0,
+        "intensity": "low",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_18",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=scM9g0LExJA",
+    "duration_sec": 295.0,
+    "height": 360,
+    "width": 480,
+    "frames": 8836,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_18_b_01",
+        "category": "Spinning",
+        "time_str": "0001:0047",
+        "start_sec": 1.0,
+        "end_sec": 47.0,
+        "duration_sec": 46.0,
+        "intensity": "high",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_18_b_02",
+        "category": "Spinning",
+        "time_str": "0100:0128",
+        "start_sec": 100.0,
+        "end_sec": 128.0,
+        "duration_sec": 28.0,
+        "intensity": "low",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_18_b_03",
+        "category": "Spinning",
+        "time_str": "0145:0208",
+        "start_sec": 145.0,
+        "end_sec": 208.0,
+        "duration_sec": 63.0,
+        "intensity": "low",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_Spinning_18_b_04",
+        "category": "Spinning",
+        "time_str": "0220:0227",
+        "start_sec": 220.0,
+        "end_sec": 227.0,
+        "duration_sec": 7.0,
+        "intensity": "low",
+        "bodypart": "head"
+      },
+      {
+        "segment_id": "v_Spinning_18_b_05",
+        "category": "Spinning",
+        "time_str": "0243:0455",
+        "start_sec": 243.0,
+        "end_sec": 455.0,
+        "duration_sec": 212.0,
+        "intensity": "low",
+        "bodypart": "head"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_19",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=AXghcX_Bjac",
+    "duration_sec": 133.0,
+    "height": 360,
+    "width": 480,
+    "frames": 3956,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_19_b_01",
+        "category": "Spinning",
+        "time_str": "0056:0103",
+        "start_sec": 56.0,
+        "end_sec": 103.0,
+        "duration_sec": 47.0,
+        "intensity": "low",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_20",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=TH5mlAhdw00",
+    "duration_sec": 79.0,
+    "height": 240,
+    "width": 320,
+    "frames": 1572,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_20_b_01",
+        "category": "Spinning",
+        "time_str": "0002:0009",
+        "start_sec": 2.0,
+        "end_sec": 9.0,
+        "duration_sec": 7.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_21",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=kFuxwAufWvQ",
+    "duration_sec": 127.0,
+    "height": 360,
+    "width": 640,
+    "frames": 1904,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_21_b_01",
+        "category": "Spinning",
+        "time_str": "0002:0047",
+        "start_sec": 2.0,
+        "end_sec": 47.0,
+        "duration_sec": 45.0,
+        "intensity": "low",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_22",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=8R1MfXoI3mo",
+    "duration_sec": 81.0,
+    "height": 360,
+    "width": 480,
+    "frames": 2008,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_22_b_01",
+        "category": "Spinning",
+        "time_str": "0002:0007",
+        "start_sec": 2.0,
+        "end_sec": 7.0,
+        "duration_sec": 5.0,
+        "intensity": "low",
+        "bodypart": "body"
+      },
+      {
+        "segment_id": "v_Spinning_22_b_02",
+        "category": "Spinning",
+        "time_str": "0015:0120",
+        "start_sec": 15.0,
+        "end_sec": 120.0,
+        "duration_sec": 105.0,
+        "intensity": "low",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_23",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=yiEo7Kg1ngY",
+    "duration_sec": 158.0,
+    "height": 240,
+    "width": 320,
+    "frames": 2357,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_23_b_01",
+        "category": "Spinning",
+        "time_str": "0001:0235",
+        "start_sec": 1.0,
+        "end_sec": 235.0,
+        "duration_sec": 234.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_24",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=-rC-ab0nzxY",
+    "duration_sec": 47.0,
+    "height": 288,
+    "width": 352,
+    "frames": 1435,
+    "persons": 1,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_24_b_01",
+        "category": "Spinning",
+        "time_str": "0026:0043",
+        "start_sec": 26.0,
+        "end_sec": 43.0,
+        "duration_sec": 17.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  },
+  {
+    "video_id": "v_Spinning_25",
+    "primary_category": "Spinning",
+    "url": "http://www.youtube.com/watch?v=VxK45NHvHTg",
+    "duration_sec": 68.0,
+    "height": 240,
+    "width": 320,
+    "frames": 2033,
+    "persons": 2,
+    "segments": [
+      {
+        "segment_id": "v_Spinning_25_b_01",
+        "category": "Spinning",
+        "time_str": "0025:0028",
+        "start_sec": 25.0,
+        "end_sec": 28.0,
+        "duration_sec": 3.0,
+        "intensity": "high",
+        "bodypart": "body"
+      }
+    ]
+  }
+]

@@ -1,0 +1,81 @@
+# ==============================================================================
+# MultiSense .gitignore - Clean GitHub Repository Configuration
+# ==============================================================================
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor Configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints
+
+# ------------------------------------------------------------------------------
+# Large Video Data & Temporary Intermediate Directories (Saves >550 MB!)
+# ------------------------------------------------------------------------------
+# Raw and heavy intermediate datasets (exceeds GitHub 100MB limit)
+MultiSense/data/raw/
+MultiSense/data/processed/
+MultiSense/data/pose/
+MultiSense/data/sequences/
+MultiSense/data/synthetic/
+clipping_ssbd_videos/
+ssbd-release/
+
+# Temporary run logs and task artifacts
+*.log
+scratch/
+.system_generated/
+
+# ------------------------------------------------------------------------------
+# Essential Artifacts to KEEP (DO NOT IGNORE)
+# ------------------------------------------------------------------------------
+# Ensure core models, features, results, and sample demo clips are tracked
+!MultiSense/models/*.pkl
+!MultiSense/models/*.pth
+!MultiSense/data/features/
+!MultiSense/data/ssbd_annotations.json
+!MultiSense/frontend/samples/
+!MultiSense/results/*.csv
+!MultiSense/results/*.png

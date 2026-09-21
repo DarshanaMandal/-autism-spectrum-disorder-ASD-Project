@@ -1,0 +1,26 @@
+{
+  "wrist_velocity": {
+    "real_mean": 0.4483739733695984,
+    "synth_mean": 0.002939277794212103,
+    "real_std": 0.13912300765514374,
+    "synth_std": 4.776834248332307e-05,
+    "wasserstein_distance": 0.44543469461049656
+  },
+  "head_velocity": {
+    "real_mean": 0.45393702387809753,
+    "synth_mean": 0.0036551496013998985,
+    "real_std": 0.1113307848572731,
+    "synth_std": 0.0001848184474511072,
+    "wasserstein_distance": 0.4502818582047983
+  },
+  "body_displacement": {
+    "real_mean": 1.1185532457602676e-05,
+    "synth_mean": 0.12657791376113892,
+    "wasserstein_distance": 0.12656674052274802
+  },
+  "sequence_variance": {
+    "real_mean": 0.12821194529533386,
+    "synth_mean": 0.00022619527589995414,
+    "wasserstein_distance": 0.12798574644676014
+  }
+}

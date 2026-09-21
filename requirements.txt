@@ -1,0 +1,26 @@
+# ==============================================================================
+# MultiSense Production Dependencies (Cloud & Local)
+# ==============================================================================
+
+# API Server & Web Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+python-multipart>=0.0.9
+pydantic>=2.0.0
+
+# Core Machine Learning & Scientific Computing
+scikit-learn>=1.5.0
+torch>=2.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+joblib>=1.3.0
+
+# Computer Vision & Skeletal Pose Extraction
+# Note: opencv-python-headless avoids libGL.so.1 errors on Linux cloud instances (Render/AWS/Heroku)
+opencv-python-headless>=4.8.0
+mediapipe>=0.10.0
+
+# Data Visualization & Export
+matplotlib>=3.7.0
+seaborn>=0.12.0
