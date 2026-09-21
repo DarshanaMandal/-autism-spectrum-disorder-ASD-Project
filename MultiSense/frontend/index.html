@@ -33,15 +33,134 @@
             <section class="glass-card">
                 <!-- Tabs Header -->
                 <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="tab-video">📹 Video Inference</button>
+                    <button class="tab-btn active" data-tab="tab-hardware">📟 Hardware & MongoDB</button>
+                    <button class="tab-btn" data-tab="tab-video">📹 Video Inference</button>
                     <button class="tab-btn" data-tab="tab-telemetry">🫀 Multimodal Telemetry</button>
                     <button class="tab-btn" data-tab="tab-kinematics">⚡ Kinematic Lab</button>
                     <button class="tab-btn" data-tab="tab-gan">🧬 TimeGAN Generator</button>
                     <button class="tab-btn" data-tab="tab-benchmarks">📊 Benchmarks</button>
                 </div>
 
+                <!-- Tab 0: Hardware Sensor Stream & MongoDB Telemetry -->
+                <div class="tab-content active" id="tab-hardware">
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                        <!-- DB Status & Banner -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.6); padding: 0.9rem 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); flex-wrap: wrap; gap: 0.8rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <div id="mongoStatusIndicator" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700; background: rgba(245, 158, 11, 0.15); color: var(--status-amber); border: 1px solid rgba(245, 158, 11, 0.3);">
+                                    <span class="pulsing-dot" id="mongoPulsingDot" style="background: var(--status-amber); width: 7px; height: 7px;"></span>
+                                    <span id="mongoStatusText">Checking MongoDB...</span>
+                                </div>
+                                <span style="font-size: 0.82rem; color: var(--text-muted);">
+                                    Database: <strong id="mongoDbName" style="color: var(--primary-cyan); font-family: var(--font-mono);">multisense_db</strong> &bull;
+                                    Table/Coll: <strong id="mongoCollName" style="color: var(--primary-purple); font-family: var(--font-mono);">sensor_telemetry</strong>
+                                </span>
+                            </div>
+                            <div style="display: flex; gap: 0.6rem; align-items: center;">
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Records: <strong id="mongoTotalCount" style="color: #fff; font-family: var(--font-mono);">0</strong></span>
+                                <button type="button" class="btn-ghost" onclick="toggleMongoConfigDrawer()" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;">
+                                    ⚙️ Set MongoDB URL
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MongoDB URI Configuration Drawer -->
+                        <div id="mongoConfigDrawer" style="display: none; background: rgba(10, 15, 29, 0.9); border: 1px dashed var(--primary-cyan); border-radius: var(--radius-md); padding: 1rem; flex-direction: column; gap: 0.75rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.85rem; font-weight: 600; color: var(--primary-cyan);">Enter MongoDB Connection URI (Atlas or Local):</span>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">(You can also set MONGODB_URI in your .env file)</span>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="text" id="mongoUriInput" placeholder="mongodb+srv://username:password@cluster0.mongodb.net/?retryWrites=true&w=majority" style="flex: 1; background: rgba(0,0,0,0.5); border: 1px solid var(--border-medium); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; color: #fff; font-family: var(--font-mono); font-size: 0.82rem;">
+                                <button type="button" class="btn-primary" onclick="saveMongoUri()" style="padding: 0.6rem 1.2rem; font-size: 0.82rem;">
+                                    Connect DB
+                                </button>
+                            </div>
+                            <div id="mongoConfigMsg" style="font-size: 0.78rem; font-family: var(--font-mono);"></div>
+                        </div>
+
+                        <!-- Microcontroller Sensor Stream Input Area -->
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                                <label style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+                                    <span>📡 Microcontroller Stream Text (IR, ACC, Light):</span>
+                                </label>
+                                <!-- Presets -->
+                                <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+                                    <button type="button" class="btn-ghost" onclick="applyHardwarePreset('user_reading')" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">📋 User Reading (IR:0, ACC:0, Light:-2.00)</button>
+                                    <button type="button" class="btn-ghost" onclick="applyHardwarePreset('flapping')" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">🦅 Motor Flapping</button>
+                                    <button type="button" class="btn-ghost" onclick="applyHardwarePreset('banging')" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">💥 Head Banging</button>
+                                    <button type="button" class="btn-ghost" onclick="applyHardwarePreset('spinning')" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">🌪️ Spinning</button>
+                                </div>
+                            </div>
+
+                            <textarea id="rawSensorTextInput" rows="4" style="width: 100%; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 0.85rem; color: #38bdf8; font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6; resize: vertical;" placeholder="IR: 0&#10;ACC: 0, 0, 0&#10;Light: -2.00 lux">IR: 0
+ACC: 0, 0, 0
+Light: -2.00 lux</textarea>
+
+                            <!-- Instant Live Sensor Diagnostics Badges -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.6rem;">
+                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 0.6rem; border-radius: var(--radius-sm);">
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">🔴 IR / Optical PPG</div>
+                                    <div id="badgeIrStatus" style="font-family: var(--font-mono); font-weight: 700; color: #f43f5e; font-size: 0.88rem;">IR: 0 (No Contact)</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 0.6rem; border-radius: var(--radius-sm);">
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">⚡ ACC Magnitude</div>
+                                    <div id="badgeAccStatus" style="font-family: var(--font-mono); font-weight: 700; color: var(--primary-cyan); font-size: 0.88rem;">0.00 g (Stationary)</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 0.6rem; border-radius: var(--radius-sm);">
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">💡 Ambient Light Lux</div>
+                                    <div id="badgeLuxStatus" style="font-family: var(--font-mono); font-weight: 700; color: #fbbf24; font-size: 0.88rem;">0.00 Lux (Dark/Calibrated)</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 0.6rem; border-radius: var(--radius-sm);">
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">🏷️ Device Node ID</div>
+                                    <input type="text" id="sensorDeviceId" value="wearable_sensor_node_01" style="width: 100%; background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 600;">
+                                </div>
+                            </div>
+
+                            <!-- Action Trigger Button -->
+                            <button type="button" class="btn-primary" id="btnSendSensorToMlAndDb" onclick="executeSensorStreamInference()" style="padding: 0.95rem; font-size: 1rem; justify-content: center; margin-top: 0.35rem;">
+                                🚀 Ingest Sensors &rarr; Multimodal ML Model &rarr; Save to MongoDB
+                            </button>
+                        </div>
+
+                        <!-- Real-time MongoDB Documents History Table -->
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4 style="font-size: 0.88rem; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+                                    <span>🗄️ Recent Records in MongoDB Collection (sensor_telemetry)</span>
+                                </h4>
+                                <button type="button" class="btn-ghost" onclick="refreshSensorHistory()" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">
+                                    🔄 Refresh Records
+                                </button>
+                            </div>
+                            <div style="overflow-x: auto; background: rgba(0,0,0,0.3); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); max-height: 280px;">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid var(--border-medium); color: var(--text-muted); background: rgba(255,255,255,0.02);">
+                                            <th style="padding: 0.6rem 0.8rem;">Timestamp</th>
+                                            <th style="padding: 0.6rem 0.8rem;">Sensors (IR | ACC | Lux)</th>
+                                            <th style="padding: 0.6rem 0.8rem;">ML Prediction</th>
+                                            <th style="padding: 0.6rem 0.8rem;">Confidence</th>
+                                            <th style="padding: 0.6rem 0.8rem;">Alert Level</th>
+                                            <th style="padding: 0.6rem 0.8rem;">Storage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sensorHistoryTableBody">
+                                        <tr>
+                                            <td colspan="6" style="padding: 1.5rem; text-align: center; color: var(--text-dim);">
+                                                Loading sensor telemetry records...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Tab 1: Video Upload & Automated Classification -->
-                <div class="tab-content active" id="tab-video">
+                <div class="tab-content" id="tab-video">
                     <div class="video-stage">
                         <!-- Preset Demo Clips -->
                         <div class="demo-clips-bar">

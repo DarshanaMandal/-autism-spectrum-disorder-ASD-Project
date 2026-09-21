@@ -154,3 +154,61 @@ class SyntheticGenerationResponse(BaseModel):
     sample_preview: List[List[float]]
     kinematic_stats: Dict[str, float]
     info: str
+
+
+class RawSensorInput(BaseModel):
+    raw_text: Optional[str] = Field(
+        None,
+        description="Raw multiline string directly from microcontroller, e.g. 'IR: 0\\nACC: 0, 0, 0\\nLight: -2.00 lux'"
+    )
+    ir: Optional[float] = Field(
+        None,
+        description="Infrared / PPG sensor value (e.g. 0 when idle/no skin contact, >0 when heart pulse detected)"
+    )
+    acc_x: Optional[float] = Field(None, description="MPU6050 accelerometer X axis")
+    acc_y: Optional[float] = Field(None, description="MPU6050 accelerometer Y axis")
+    acc_z: Optional[float] = Field(None, description="MPU6050 accelerometer Z axis")
+    light_lux: Optional[float] = Field(
+        None,
+        description="BH1750 ambient light lux reading (e.g. -2.00 lux uncalibrated offset or 350.0 lux)"
+    )
+    device_id: Optional[str] = Field("sensor_node_01", description="Identifier of the physical device or subject")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "raw_text": "IR: 0\nACC: 0, 0, 0\nLight: -2.00 lux",
+                "device_id": "child_wearable_node_01"
+            }
+        }
+
+
+class SensorRecordResponse(BaseModel):
+    success: bool = True
+    record_id: str
+    timestamp: str
+    device_id: str
+    storage_status: str = Field(description="'SAVED_TO_MONGODB' or 'BUFFERED_LOCALLY'")
+    input_sensors: Dict[str, Any]
+    computed_features: Dict[str, Any]
+    ml_output: Dict[str, Any]
+    clinical_alert: ClinicalAlert
+
+
+class SensorHistoryResponse(BaseModel):
+    success: bool = True
+    total_returned: int
+    storage_status: str
+    records: List[Dict[str, Any]]
+
+
+class DatabaseStatusResponse(BaseModel):
+    has_uri: bool
+    connected: bool
+    masked_uri: str
+    database: str
+    collection: str
+    total_records: int
+    database_records: int
+    buffered_in_memory: int
+    status_message: str

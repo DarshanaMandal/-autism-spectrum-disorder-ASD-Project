@@ -18,8 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
     initSensors();
     initKinematicSliders();
     initVideoUpload();
+    initHardwareSensorTab();
     checkBackendHealth();
-    setInterval(checkBackendHealth, 8000);
+    checkMongoStatus();
+    refreshSensorHistory();
+    setInterval(() => {
+        checkBackendHealth();
+        checkMongoStatus();
+    }, 8000);
 
     // Initialize visualizer pose animator on tab switch or immediately
     if (window.visualizer) {
@@ -604,3 +610,295 @@ window.applyKinematicPreset = applyKinematicPreset;
 window.executeMultimodalPrediction = executeMultimodalPrediction;
 window.executeKinematicPrediction = executeKinematicPrediction;
 window.executeGanGeneration = executeGanGeneration;
+
+/* =========================================================
+   9. HARDWARE SENSOR STREAM & MONGODB TELEMETRY
+   ========================================================= */
+
+function initHardwareSensorTab() {
+    const textarea = document.getElementById("rawSensorTextInput");
+    if (textarea) {
+        textarea.addEventListener("input", () => {
+            updateSensorBadges(textarea.value);
+        });
+        updateSensorBadges(textarea.value);
+    }
+}
+
+function updateSensorBadges(text) {
+    const badgeIr = document.getElementById("badgeIrStatus");
+    const badgeAcc = document.getElementById("badgeAccStatus");
+    const badgeLux = document.getElementById("badgeLuxStatus");
+
+    let ir = 0, ax = 0, ay = 0, az = 0, lux = 0;
+
+    const irMatch = text.match(/IR\s*:\s*([+-]?\d+(?:\.\d+)?)/i);
+    if (irMatch) ir = parseFloat(irMatch[1]);
+
+    const accMatch = text.match(/ACC\s*:\s*([+-]?\d+(?:\.\d+)?)\s*,\s*([+-]?\d+(?:\.\d+)?)\s*,\s*([+-]?\d+(?:\.\d+)?)/i);
+    if (accMatch) {
+        ax = parseFloat(accMatch[1]);
+        ay = parseFloat(accMatch[2]);
+        az = parseFloat(accMatch[3]);
+    }
+
+    const luxMatch = text.match(/Light\s*:\s*([+-]?\d+(?:\.\d+)?)/i);
+    if (luxMatch) lux = parseFloat(luxMatch[1]);
+
+    const mag = Math.sqrt(ax * ax + ay * ay + az * az).toFixed(2);
+    const calLux = Math.max(0, lux).toFixed(2);
+
+    if (badgeIr) {
+        if (ir <= 10) {
+            badgeIr.innerHTML = `IR: ${ir} <span style="font-weight:400; font-size:0.72rem; color:var(--text-muted);">(No Skin Contact)</span>`;
+            badgeIr.style.color = "#f43f5e";
+        } else {
+            badgeIr.innerHTML = `IR: ${ir} <span style="font-weight:400; font-size:0.72rem; color:var(--status-green);">(Pulse Active)</span>`;
+            badgeIr.style.color = "var(--status-green)";
+        }
+    }
+
+    if (badgeAcc) {
+        const desc = mag > 2.0 ? "High Dynamic Motion" : (mag > 0.3 ? "Subtle Motion" : "Stationary / Calm");
+        badgeAcc.innerHTML = `${mag} g <span style="font-weight:400; font-size:0.72rem; color:var(--text-muted);">(${desc})</span>`;
+    }
+
+    if (badgeLux) {
+        const offsetNotice = lux < 0 ? ` [offset ${lux} clamped to 0]` : "";
+        badgeLux.innerHTML = `${calLux} Lux <span style="font-weight:400; font-size:0.72rem; color:var(--text-muted);">${offsetNotice}</span>`;
+    }
+}
+
+async function checkMongoStatus() {
+    const indicator = document.getElementById("mongoStatusIndicator");
+    const statusText = document.getElementById("mongoStatusText");
+    const pulsingDot = document.getElementById("mongoPulsingDot");
+    const dbName = document.getElementById("mongoDbName");
+    const collName = document.getElementById("mongoCollName");
+    const totalCount = document.getElementById("mongoTotalCount");
+
+    try {
+        const res = await fetch(`${API_BASE}/api/db-status`);
+        if (!res.ok) throw new Error("DB Status fetch failed");
+        const data = await res.json();
+
+        if (dbName) dbName.innerText = data.database || "multisense_db";
+        if (collName) collName.innerText = data.collection || "sensor_telemetry";
+        if (totalCount) totalCount.innerText = data.total_records || 0;
+
+        if (data.connected) {
+            if (indicator) {
+                indicator.style.background = "rgba(16, 185, 129, 0.15)";
+                indicator.style.color = "var(--status-green)";
+                indicator.style.borderColor = "rgba(16, 185, 129, 0.3)";
+            }
+            if (pulsingDot) pulsingDot.style.background = "var(--status-green)";
+            if (statusText) statusText.innerText = "MongoDB Connected";
+        } else if (data.has_uri) {
+            if (indicator) {
+                indicator.style.background = "rgba(239, 68, 68, 0.15)";
+                indicator.style.color = "var(--status-red)";
+                indicator.style.borderColor = "rgba(239, 68, 68, 0.3)";
+            }
+            if (pulsingDot) pulsingDot.style.background = "var(--status-red)";
+            if (statusText) statusText.innerText = "MongoDB Reconnecting";
+        } else {
+            if (indicator) {
+                indicator.style.background = "rgba(245, 158, 11, 0.15)";
+                indicator.style.color = "var(--status-amber)";
+                indicator.style.borderColor = "rgba(245, 158, 11, 0.3)";
+            }
+            if (pulsingDot) pulsingDot.style.background = "var(--status-amber)";
+            if (statusText) statusText.innerText = "Buffered Locally (Ready for URI)";
+        }
+    } catch (e) {
+        if (statusText) statusText.innerText = "DB Check Offline";
+    }
+}
+
+function toggleMongoConfigDrawer() {
+    const drawer = document.getElementById("mongoConfigDrawer");
+    if (drawer) {
+        drawer.style.display = drawer.style.display === "none" || !drawer.style.display ? "flex" : "none";
+    }
+}
+
+async function saveMongoUri() {
+    const input = document.getElementById("mongoUriInput");
+    const msg = document.getElementById("mongoConfigMsg");
+    if (!input) return;
+
+    const uri = input.value.trim();
+    if (!uri) {
+        if (msg) {
+            msg.innerText = "Please enter a valid MongoDB connection string.";
+            msg.style.color = "var(--status-red)";
+        }
+        return;
+    }
+
+    if (msg) {
+        msg.innerText = "Testing MongoDB connection...";
+        msg.style.color = "var(--primary-cyan)";
+    }
+
+    try {
+        const res = await fetch(`${API_BASE}/api/db-configure`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mongodb_uri: uri })
+        });
+        const data = await res.json();
+        if (data.connected) {
+            if (msg) {
+                msg.innerText = `Connected successfully to database '${data.status.database}'!`;
+                msg.style.color = "var(--status-green)";
+            }
+            checkMongoStatus();
+            refreshSensorHistory();
+            setTimeout(toggleMongoConfigDrawer, 2500);
+        } else {
+            if (msg) {
+                msg.innerText = `Connection failed: ${data.message}`;
+                msg.style.color = "var(--status-red)";
+            }
+        }
+    } catch (e) {
+        if (msg) {
+            msg.innerText = `Error: ${e.message}`;
+            msg.style.color = "var(--status-red)";
+        }
+    }
+}
+
+function applyHardwarePreset(preset) {
+    const textarea = document.getElementById("rawSensorTextInput");
+    if (!textarea) return;
+
+    if (preset === "user_reading") {
+        textarea.value = `IR: 0\nACC: 0, 0, 0\nLight: -2.00 lux`;
+    } else if (preset === "flapping") {
+        textarea.value = `IR: 125\nACC: 1.8, 2.4, 3.2\nLight: 450.00 lux`;
+    } else if (preset === "banging") {
+        textarea.value = `IR: 148\nACC: 0.8, 4.8, 1.2\nLight: 380.00 lux`;
+    } else if (preset === "spinning") {
+        textarea.value = `IR: 112\nACC: 1.2, 1.0, 4.1\nLight: 260.00 lux`;
+    }
+    updateSensorBadges(textarea.value);
+}
+
+async function executeSensorStreamInference() {
+    const textarea = document.getElementById("rawSensorTextInput");
+    const deviceInput = document.getElementById("sensorDeviceId");
+    const btn = document.getElementById("btnSendSensorToMlAndDb");
+    if (!textarea) return;
+
+    const rawText = textarea.value.trim();
+    const deviceId = deviceInput ? deviceInput.value.trim() : "sensor_node_01";
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Processing ML & Storing in DB...`;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE}/api/sensor-stream`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                raw_text: rawText,
+                device_id: deviceId
+            })
+        });
+
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            throw new Error(errData.detail || `Server error: ${res.status}`);
+        }
+
+        const data = await res.json();
+
+        // Feed prediction into main clinical results card on right panel
+        displayPrediction({
+            predicted_class: data.ml_output.predicted_class,
+            class_id: data.ml_output.class_id,
+            confidence: data.ml_output.confidence,
+            probabilities: data.ml_output.probabilities,
+            model_used: data.ml_output.model_used,
+            clinical_alert: data.clinical_alert,
+            biomechanical_summary: {
+                acc_mag: data.computed_features.acc_magnitude_g,
+                calibrated_lux: data.computed_features.calibrated_lux,
+                heart_rate_bpm: data.computed_features.heart_rate_bpm
+            }
+        });
+
+        // Refresh records table
+        refreshSensorHistory();
+        checkMongoStatus();
+
+    } catch (err) {
+        alert("Sensor ingestion error: " + err.message);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = `🚀 Ingest Sensors &rarr; Multimodal ML Model &rarr; Save to MongoDB`;
+        }
+    }
+}
+
+async function refreshSensorHistory() {
+    const tbody = document.getElementById("sensorHistoryTableBody");
+    if (!tbody) return;
+
+    try {
+        const res = await fetch(`${API_BASE}/api/sensor-history?limit=15`);
+        if (!res.ok) return;
+        const data = await res.json();
+        const records = data.records || [];
+
+        if (records.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="padding: 1.5rem; text-align: center; color: var(--text-dim);">No sensor stream records ingested yet. Click 'Ingest Sensors' above to generate first telemetry record!</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = records.map(r => {
+            const timeStr = new Date(r.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const s = r.input_sensors || {};
+            const ml = r.ml_output || {};
+            const alert = r.clinical_alert || {};
+            const isDb = r.storage_status === "SAVED_TO_MONGODB";
+
+            const storageBadge = isDb
+                ? `<span style="background: rgba(16, 185, 129, 0.2); color: var(--status-green); padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 700; font-size: 0.7rem;">MONGODB</span>`
+                : `<span style="background: rgba(245, 158, 11, 0.2); color: var(--status-amber); padding: 0.15rem 0.45rem; border-radius: 4px; font-weight: 700; font-size: 0.7rem;">BUFFER</span>`;
+
+            const riskBadge = `<span style="color: ${alert.risk_color || '#fff'}; font-weight: 700;">${alert.risk_level || 'N/A'}</span>`;
+            const confPct = ml.confidence ? (ml.confidence * 100).toFixed(1) + "%" : "-";
+
+            return `
+                <tr style="border-bottom: 1px solid var(--border-subtle); transition: background 0.15s;">
+                    <td style="padding: 0.55rem 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">${timeStr}</td>
+                    <td style="padding: 0.55rem 0.8rem; font-family: var(--font-mono);">
+                        IR: <span style="color:#f43f5e;">${s.ir !== undefined ? s.ir : 0}</span> | 
+                        ACC: <span style="color:var(--primary-cyan);">${r.computed_features ? r.computed_features.acc_magnitude_g + 'g' : '-'}</span> | 
+                        Lux: <span style="color:#fbbf24;">${s.calibrated_light_lux !== undefined ? s.calibrated_light_lux : '-'}</span>
+                    </td>
+                    <td style="padding: 0.55rem 0.8rem; font-weight: 700; color: #fff;">${ml.predicted_class || 'Unknown'}</td>
+                    <td style="padding: 0.55rem 0.8rem; font-family: var(--font-mono); color: var(--primary-cyan);">${confPct}</td>
+                    <td style="padding: 0.55rem 0.8rem;">${riskBadge}</td>
+                    <td style="padding: 0.55rem 0.8rem;">${storageBadge}</td>
+                </tr>
+            `;
+        }).join("");
+
+    } catch (e) {
+        console.error("Could not refresh sensor history:", e);
+    }
+}
+
+window.toggleMongoConfigDrawer = toggleMongoConfigDrawer;
+window.saveMongoUri = saveMongoUri;
+window.applyHardwarePreset = applyHardwarePreset;
+window.executeSensorStreamInference = executeSensorStreamInference;
+window.refreshSensorHistory = refreshSensorHistory;

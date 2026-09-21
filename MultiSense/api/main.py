@@ -38,9 +38,15 @@ from schemas import (
     PoseSequenceInput,
     PredictionResponse,
     SyntheticGenerationRequest,
-    SyntheticGenerationResponse
+    SyntheticGenerationResponse,
+    RawSensorInput,
+    SensorRecordResponse,
+    SensorHistoryResponse,
+    DatabaseStatusResponse
 )
 import inference
+from database import db_manager
+from sensor_parser import process_sensor_input
 
 # Initialize FastAPI App
 app = FastAPI(
@@ -263,6 +269,103 @@ async def generate_synthetic(payload: SyntheticGenerationRequest):
         return SyntheticGenerationResponse(**result)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ==============================================================================
+# Hardware Sensor Stream & MongoDB Telemetry Endpoints
+# ==============================================================================
+
+@app.post("/api/sensor-stream", response_model=SensorRecordResponse, tags=["Sensor Telemetry & Database"])
+@app.post("/api/sensor/predict-and-store", response_model=SensorRecordResponse, tags=["Sensor Telemetry & Database"])
+async def ingest_sensor_stream(payload: RawSensorInput):
+    """
+    Ingests live sensor readings from hardware (IR, 3-Axis ACC, Ambient Light).
+    Supports raw microcontroller stream text (e.g. 'IR: 0\\nACC: 0, 0, 0\\nLight: -2.00 lux')
+    or structured JSON. Fuses inputs into the 22-feature Multimodal RF classifier,
+    computes clinical risk guidance, and appends the complete record to MongoDB.
+    """
+    try:
+        raw_summary, computed_telemetry, multimodal_feats = process_sensor_input(payload)
+        # Execute 97.44% Multimodal Classifier
+        ml_res = inference.predict_from_multimodal(multimodal_feats)
+
+        # Store in MongoDB (or local buffer if DB not yet connected)
+        record = db_manager.save_record(
+            raw_input=raw_summary,
+            computed_features=computed_telemetry,
+            ml_prediction=ml_res,
+            clinical_alert=ml_res["clinical_alert"],
+            device_id=payload.device_id or "sensor_node_01"
+        )
+
+        return SensorRecordResponse(
+            success=True,
+            record_id=record["_id"],
+            timestamp=record["timestamp"],
+            device_id=record["device_id"],
+            storage_status=record["storage_status"],
+            input_sensors=record["input_sensors"],
+            computed_features=record["computed_features"],
+            ml_output=record["ml_output"],
+            clinical_alert=record["clinical_alert"]
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Sensor stream ingestion failed: {str(e)}")
+
+
+@app.get("/api/sensor-history", response_model=SensorHistoryResponse, tags=["Sensor Telemetry & Database"])
+async def get_sensor_history(limit: int = Query(50, ge=1, le=500, description="Max records to retrieve")):
+    """
+    Fetches recent sensor telemetry and classification records from MongoDB collection 'sensor_telemetry'.
+    """
+    try:
+        records = db_manager.get_history(limit=limit)
+        status_info = db_manager.get_status()
+        storage = "MONGODB" if status_info["connected"] else "IN_MEMORY_BUFFER"
+        return SensorHistoryResponse(
+            success=True,
+            total_returned=len(records),
+            storage_status=storage,
+            records=records
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch sensor history: {str(e)}")
+
+
+@app.get("/api/db-status", response_model=DatabaseStatusResponse, tags=["Sensor Telemetry & Database"])
+async def get_database_status():
+    """
+    Returns current connection status to MongoDB Atlas / local database.
+    """
+    status_info = db_manager.get_status()
+    return DatabaseStatusResponse(**status_info)
+
+
+@app.post("/api/db-configure", tags=["Sensor Telemetry & Database"])
+async def configure_database(payload: Dict[str, Any]):
+    """
+    Dynamically update or test MONGODB_URI at runtime without restarting server.
+    """
+    uri = payload.get("mongodb_uri", "").strip()
+    db_name = payload.get("db_name", "").strip()
+    coll_name = payload.get("collection", "").strip()
+
+    if uri:
+        os.environ["MONGODB_URI"] = uri
+    if db_name:
+        os.environ["MONGODB_DB_NAME"] = db_name
+    if coll_name:
+        os.environ["MONGODB_COLLECTION"] = coll_name
+
+    # Try connecting
+    connected, msg = db_manager.connect()
+    status_info = db_manager.get_status()
+    return {
+        "success": connected,
+        "connected": connected,
+        "message": msg,
+        "status": status_info
+    }
 
 
 if __name__ == "__main__":
