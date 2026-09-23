@@ -34,6 +34,12 @@ try:
 except ImportError:
     PYMONGO_AVAILABLE = False
 
+try:
+    import certifi
+    CA_FILE = certifi.where()
+except Exception:
+    CA_FILE = None
+
 # Configuration Defaults
 DEFAULT_DB_NAME = "multisense_db"
 DEFAULT_COLLECTION = "sensor_telemetry"
@@ -51,6 +57,7 @@ class DatabaseManager:
         self.collection = None
         self._is_connected = False
         self._last_error = ""
+        self._last_connect_attempt = 0.0
 
     def get_uri(self) -> str:
         return os.environ.get("MONGODB_URI", "").strip()
@@ -63,6 +70,9 @@ class DatabaseManager:
 
     def connect(self) -> Tuple[bool, str]:
         """Attempts to establish connection to MongoDB if URI is configured."""
+        import time
+        self._last_connect_attempt = time.time()
+
         if not PYMONGO_AVAILABLE:
             self._is_connected = False
             self._last_error = "pymongo package is not installed."
@@ -75,8 +85,15 @@ class DatabaseManager:
             return False, self._last_error
 
         try:
-            # 3 second timeout for server selection
-            self.client = MongoClient(uri, serverSelectionTimeoutMS=3000, connectTimeoutMS=3000)
+            # Connect with certifi CA bundle for secure TLS on macOS / Linux
+            client_kwargs = {
+                "serverSelectionTimeoutMS": 2500,
+                "connectTimeoutMS": 2500
+            }
+            if CA_FILE:
+                client_kwargs["tlsCAFile"] = CA_FILE
+
+            self.client = MongoClient(uri, **client_kwargs)
             # Verify connection with ping
             self.client.admin.command('ping')
             
@@ -90,14 +107,19 @@ class DatabaseManager:
             return True, "Connected"
         except (ConnectionFailure, ServerSelectionTimeoutError, Exception) as e:
             self._is_connected = False
-            self._last_error = str(e)
-            print(f"[!] MongoDB connection error: {e}")
-            return False, str(e)
+            err_str = str(e)
+            if "TLSV1_ALERT_INTERNAL_ERROR" in err_str or "SSL handshake failed" in err_str:
+                self._last_error = "ATLAS_IP_WHITELIST_REQUIRED: Please add 0.0.0.0/0 in MongoDB Atlas -> Network Access."
+            else:
+                self._last_error = err_str
+            print(f"[!] MongoDB connection error: {self._last_error}")
+            return False, self._last_error
 
     def get_collection(self):
-        """Returns the collection if connected, attempting reconnect if needed."""
+        """Returns the collection if connected, attempting reconnect with 30s cooldown."""
+        import time
         if not self._is_connected or self.collection is None:
-            if self.get_uri():
+            if self.get_uri() and (time.time() - self._last_connect_attempt > 30.0):
                 self.connect()
         return self.collection if self._is_connected else None
 
@@ -117,10 +139,9 @@ class DatabaseManager:
 
         total_records = len(MEMORY_TELEMETRY_BUFFER)
         db_records = 0
-        coll = self.get_collection()
-        if coll is not None:
+        if self._is_connected and self.collection is not None:
             try:
-                db_records = coll.count_documents({})
+                db_records = self.collection.count_documents({})
                 total_records = db_records
             except Exception:
                 pass
@@ -193,10 +214,9 @@ class DatabaseManager:
 
     def get_history(self, limit: int = 50) -> List[Dict[str, Any]]:
         """Retrieves recent sensor telemetry records."""
-        coll = self.get_collection()
-        if coll is not None:
+        if self._is_connected and self.collection is not None:
             try:
-                cursor = coll.find({}).sort("_id", -1).limit(limit)
+                cursor = self.collection.find({}).sort("_id", -1).limit(limit)
                 records = []
                 for item in cursor:
                     item["_id"] = str(item.get("_id"))

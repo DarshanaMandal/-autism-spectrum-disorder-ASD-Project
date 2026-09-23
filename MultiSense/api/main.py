@@ -16,9 +16,9 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Any, Optional
 
-from fastapi import FastAPI, File, UploadFile, Query, HTTPException, status
+from fastapi import FastAPI, File, UploadFile, Query, HTTPException, status, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 import numpy as np
 
@@ -42,7 +42,8 @@ from schemas import (
     RawSensorInput,
     SensorRecordResponse,
     SensorHistoryResponse,
-    DatabaseStatusResponse
+    DatabaseStatusResponse,
+    ArduinoCompactResponse
 )
 import inference
 from database import db_manager
@@ -311,6 +312,119 @@ async def ingest_sensor_stream(payload: RawSensorInput):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Sensor stream ingestion failed: {str(e)}")
+
+
+# ==============================================================================
+# Dedicated Arduino Uno & Microcontroller Endpoints
+# ==============================================================================
+
+@app.post("/api/arduino/stream", tags=["Arduino & Microcontrollers"])
+@app.get("/api/arduino/stream", tags=["Arduino & Microcontrollers"])
+async def arduino_sensor_stream(
+    request: Request,
+    format: str = Query("json", description="Response format: 'json' or 'text'"),
+    ir: Optional[float] = Query(None, description="Infrared reading (e.g. 0 or pulse value)"),
+    ax: Optional[float] = Query(None, description="MPU6050 Accelerometer X"),
+    ay: Optional[float] = Query(None, description="MPU6050 Accelerometer Y"),
+    az: Optional[float] = Query(None, description="MPU6050 Accelerometer Z"),
+    lux: Optional[float] = Query(None, description="BH1750 Ambient Light lux"),
+    device: Optional[str] = Query("arduino_uno", description="Microcontroller Device ID")
+):
+    """
+    Ultra-lightweight endpoint specifically designed for microcontrollers (Arduino Uno, ESP8266, ESP32):
+    - Supports HTTP GET queries: /api/arduino/stream?ir=0&ax=0&ay=0&az=0&lux=-2.0
+    - Supports HTTP POST with raw microcontroller text ('IR: 0\\nACC: 0, 0, 0\\nLight: -2.00 lux')
+    - Supports HTTP POST with JSON body
+    - Returns compact responses (low memory footprint to prevent Arduino 2KB RAM overflow):
+        * format=json: {"ok":true,"pred":"ArmFlapping","conf":0.45,"risk":"MEDIUM","buzzer":0,"db":"SAVED"}
+        * format=text: PRED:ArmFlapping|CONF:0.45|RISK:MEDIUM|BUZZER:0|DB:SAVED
+    """
+    raw_text = None
+    input_ir = ir
+    input_ax = ax
+    input_ay = ay
+    input_az = az
+    input_lux = lux
+    device_id = device or "arduino_uno"
+
+    # If POST, check body content
+    if request.method == "POST":
+        try:
+            body_bytes = await request.body()
+            body_str = body_bytes.decode("utf-8", errors="ignore").strip()
+            if body_str.startswith("{"):
+                # JSON body
+                import json
+                parsed_json = json.loads(body_str)
+                raw_text = parsed_json.get("raw_text")
+                if input_ir is None:
+                    input_ir = parsed_json.get("ir")
+                if input_ax is None:
+                    input_ax = parsed_json.get("acc_x", parsed_json.get("ax"))
+                if input_ay is None:
+                    input_ay = parsed_json.get("acc_y", parsed_json.get("ay"))
+                if input_az is None:
+                    input_az = parsed_json.get("acc_z", parsed_json.get("az"))
+                if input_lux is None:
+                    input_lux = parsed_json.get("light_lux", parsed_json.get("lux"))
+                if parsed_json.get("device_id"):
+                    device_id = parsed_json.get("device_id")
+            elif body_str:
+                # Raw text format (e.g. IR: 0\nACC: 0, 0, 0\nLight: -2.00 lux)
+                raw_text = body_str
+        except Exception:
+            pass
+
+    # Build RawSensorInput
+    payload = RawSensorInput(
+        raw_text=raw_text,
+        ir=input_ir,
+        acc_x=input_ax,
+        acc_y=input_ay,
+        acc_z=input_az,
+        light_lux=input_lux,
+        device_id=device_id
+    )
+
+    try:
+        raw_summary, computed_telemetry, multimodal_feats = process_sensor_input(payload)
+        # Run ML inference
+        ml_res = inference.predict_from_multimodal(multimodal_feats)
+
+        # Persist in MongoDB
+        record = db_manager.save_record(
+            raw_input=raw_summary,
+            computed_features=computed_telemetry,
+            ml_prediction=ml_res,
+            clinical_alert=ml_res["clinical_alert"],
+            device_id=device_id
+        )
+
+        pred_class = ml_res["predicted_class"]
+        confidence = round(float(ml_res["confidence"]), 4)
+        risk_level = ml_res["clinical_alert"]["risk_level"]
+        # Buzzer flag: 1 if HIGH risk (SIB / HeadBanging), 0 otherwise
+        buzzer = 1 if risk_level == "HIGH" else 0
+        db_stat = "SAVED" if record["storage_status"] == "SAVED_TO_MONGODB" else "BUFFERED"
+        rec_id = record["_id"][:8]
+
+        # Plain text output for simple Arduino parsing without JSON libraries
+        if format.lower() == "text":
+            text_resp = f"PRED:{pred_class}|CONF:{confidence:.2f}|RISK:{risk_level}|BUZZER:{buzzer}|DB:{db_stat}"
+            return PlainTextResponse(text_resp)
+
+        # Compact JSON output
+        return ArduinoCompactResponse(
+            ok=True,
+            pred=pred_class,
+            conf=confidence,
+            risk=risk_level,
+            buzzer=buzzer,
+            db=db_stat,
+            rec_id=rec_id
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Arduino stream processing error: {str(e)}")
 
 
 @app.get("/api/sensor-history", response_model=SensorHistoryResponse, tags=["Sensor Telemetry & Database"])

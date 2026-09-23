@@ -212,3 +212,13 @@ class DatabaseStatusResponse(BaseModel):
     database_records: int
     buffered_in_memory: int
     status_message: str
+
+
+class ArduinoCompactResponse(BaseModel):
+    ok: bool = True
+    pred: str = Field(description="Predicted stimming class: ArmFlapping, HeadBanging, Spinning")
+    conf: float = Field(description="Model confidence probability (0.0 to 1.0)")
+    risk: str = Field(description="Clinical risk level: HIGH, MEDIUM, or LOW")
+    buzzer: int = Field(description="1 if alert requires physical notification (LED/Buzzer), 0 otherwise")
+    db: str = Field(description="'SAVED' if persisted to MongoDB, 'BUFFERED' if local")
+    rec_id: str = Field(description="Unique record identifier")
