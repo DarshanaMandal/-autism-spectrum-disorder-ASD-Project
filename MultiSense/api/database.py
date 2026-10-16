@@ -216,7 +216,7 @@ class DatabaseManager:
         """Retrieves recent sensor telemetry records."""
         if self._is_connected and self.collection is not None:
             try:
-                cursor = self.collection.find({}).sort("_id", -1).limit(limit)
+                cursor = self.collection.find({}).sort("timestamp", -1).limit(limit)
                 records = []
                 for item in cursor:
                     item["_id"] = str(item.get("_id"))

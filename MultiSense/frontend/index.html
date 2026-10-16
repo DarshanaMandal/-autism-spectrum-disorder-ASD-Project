@@ -4,152 +4,302 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MultiSense: Clinical ASD Stimming Detection & Biomechanical Pose Suite</title>
-    <meta name="description" content="Academic & Clinical AI platform for Autism Spectrum Disorder (ASD) self-stimulatory behavior detection using Biomechanical Pose Kinematics, Conditional TimeGAN, and Multimodal Sensors.">
+    <meta name="description" content="Research-Grade AI platform for Autism Spectrum Disorder (ASD) self-stimulatory behavior detection using Biomechanical Pose Kinematics, Conditional TimeGAN, and Wearable Multimodal Telemetry.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="app-wrapper">
         <!-- Top Navigation Bar -->
-        <nav class="top-nav">
+        <header class="top-nav">
             <div class="brand-section">
-                <div class="brand-icon">🧬</div>
+                <div class="brand-icon">
+                    <span class="icon-pulse">🧬</span>
+                </div>
                 <div class="brand-text">
                     <h1>MultiSense Clinical Portal</h1>
-                    <p>Multimodal ASD Stimming Detection, Pose Kinematics & Wearable Telemetry</p>
+                    <p>Multimodal ASD Stimming Detection &bull; Pose Kinematics &bull; Wearable Sensor Telemetry</p>
                 </div>
             </div>
+
             <div class="nav-controls">
-                <div class="status-pill" id="backendStatusPill">
-                    <span class="pulsing-dot"></span> Checking API...
+                <!-- Live Backend Health Pill -->
+                <div class="status-pill" id="backendStatusPill" onclick="openHostSettings()" title="Click to view/change Backend API URL">
+                    <span class="pulsing-dot" id="backendPulsingDot"></span>
+                    <span id="backendStatusText">Checking API...</span>
                 </div>
-                <button class="btn-ghost" id="openSettingsBtn" title="Configure API Endpoint">⚙️ Host Settings</button>
-                <a href="/docs" target="_blank" class="btn-ghost" title="OpenAPI Documentation">📄 Swagger Docs ↗</a>
+
+                <!-- MongoDB Connection Status Pill -->
+                <div class="status-pill status-mongo" id="navMongoPill" onclick="toggleMongoConfigDrawer()" title="Click to configure MongoDB Atlas URI">
+                    <span class="mongo-icon">🍃</span>
+                    <span id="navMongoText">DB: Checking</span>
+                </div>
+
+                <!-- Hosting Deployment Guide Button -->
+                <button type="button" class="btn-ghost" id="openHostingGuideBtn" title="How and where to host this application properly">
+                    <span>🚀</span> Hosting Guide
+                </button>
+
+                <!-- Host Settings Modal Trigger -->
+                <button type="button" class="btn-ghost" id="openSettingsBtn" title="Configure Backend API Endpoint">
+                    <span>⚙️</span> API Endpoint
+                </button>
+
+                <!-- OpenAPI Swagger Documentation Link -->
+                <a href="/docs" target="_blank" class="btn-ghost" title="Interactive Swagger REST API Documentation" id="swaggerDocsLink">
+                    <span>📄</span> Swagger Docs ↗
+                </a>
             </div>
-        </nav>
+        </header>
 
         <!-- Main Dashboard 2-Column Grid -->
         <main class="dashboard-grid">
-            <!-- Left Column: Tabs & Interactive Workbenches -->
-            <section class="glass-card">
-                <!-- Tabs Header -->
-                <div class="tabs-header">
-                    <button class="tab-btn active" data-tab="tab-hardware">📟 Hardware & MongoDB</button>
-                    <button class="tab-btn" data-tab="tab-video">📹 Video Inference</button>
-                    <button class="tab-btn" data-tab="tab-telemetry">🫀 Multimodal Telemetry</button>
-                    <button class="tab-btn" data-tab="tab-kinematics">⚡ Kinematic Lab</button>
-                    <button class="tab-btn" data-tab="tab-gan">🧬 TimeGAN Generator</button>
-                    <button class="tab-btn" data-tab="tab-benchmarks">📊 Benchmarks</button>
-                </div>
+            <!-- Left Column: Interactive Workbenches & Tabs -->
+            <section class="glass-card main-workbench-card">
+                <!-- Navigation Tabs Bar -->
+                <nav class="tabs-header" aria-label="Workbench tabs">
+                    <button class="tab-btn active" data-tab="tab-hardware">
+                        <span class="tab-icon">📟</span>
+                        <span>Hardware & Live Stream</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab-video">
+                        <span class="tab-icon">📹</span>
+                        <span>Video Kinematics</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab-telemetry">
+                        <span class="tab-icon">🫀</span>
+                        <span>Multimodal Biosensors</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab-kinematics">
+                        <span class="tab-icon">⚡</span>
+                        <span>Kinematic Lab</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab-gan">
+                        <span class="tab-icon">🧬</span>
+                        <span>TimeGAN Pose</span>
+                    </button>
+                    <button class="tab-btn" data-tab="tab-benchmarks">
+                        <span class="tab-icon">📊</span>
+                        <span>Clinical Benchmarks</span>
+                    </button>
+                </nav>
 
-                <!-- Tab 0: Hardware Sensor Stream & MongoDB Telemetry -->
+                <!-- TAB 0: Hardware Sensor Stream & MongoDB Telemetry -->
                 <div class="tab-content active" id="tab-hardware">
-                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-                        <!-- DB Status & Banner -->
-                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.6); padding: 0.9rem 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); flex-wrap: wrap; gap: 0.8rem;">
-                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                <div id="mongoStatusIndicator" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700; background: rgba(245, 158, 11, 0.15); color: var(--status-amber); border: 1px solid rgba(245, 158, 11, 0.3);">
-                                    <span class="pulsing-dot" id="mongoPulsingDot" style="background: var(--status-amber); width: 7px; height: 7px;"></span>
-                                    <span id="mongoStatusText">Checking MongoDB...</span>
+                    <div class="tab-vertical-stack">
+                        <!-- Live Telemetry Stream Engine Header -->
+                        <div class="stream-control-banner">
+                            <div class="stream-info">
+                                <div class="stream-status-badge" id="streamStatusBadge">
+                                    <span class="radar-dot"></span>
+                                    <span id="streamStatusLabel">Live Telemetry Stream: Polling Backend</span>
                                 </div>
-                                <span style="font-size: 0.82rem; color: var(--text-muted);">
-                                    Database: <strong id="mongoDbName" style="color: var(--primary-cyan); font-family: var(--font-mono);">multisense_db</strong> &bull;
-                                    Table/Coll: <strong id="mongoCollName" style="color: var(--primary-purple); font-family: var(--font-mono);">sensor_telemetry</strong>
+                                <span class="stream-sync-stat" id="streamSyncStat">
+                                    Auto-Sync: <strong id="streamSyncFreq">Every 2.5s</strong> &bull; Total records: <strong id="streamRecordCount">0</strong>
                                 </span>
                             </div>
-                            <div style="display: flex; gap: 0.6rem; align-items: center;">
-                                <span style="font-size: 0.8rem; color: var(--text-muted);">Records: <strong id="mongoTotalCount" style="color: #fff; font-family: var(--font-mono);">0</strong></span>
-                                <button type="button" class="btn-ghost" onclick="toggleMongoConfigDrawer()" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;">
-                                    ⚙️ Set MongoDB URL
+
+                            <div class="stream-actions">
+                                <!-- Auto-Sync Polling Toggle -->
+                                <button type="button" class="btn-toggle-sync active" id="toggleSyncBtn" onclick="toggleAutoSync()">
+                                    <span id="syncBtnIcon">⏸️</span>
+                                    <span id="syncBtnText">Auto-Sync: ON</span>
+                                </button>
+
+                                <!-- Hardware Simulator Stream Toggle -->
+                                <button type="button" class="btn-sim-stream" id="toggleSimStreamBtn" onclick="toggleLiveHardwareSimulator()">
+                                    <span id="simBtnIcon">🎲</span>
+                                    <span id="simBtnText">Simulate Live Arduino Stream</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- MongoDB URI Configuration Drawer -->
-                        <div id="mongoConfigDrawer" style="display: none; background: rgba(10, 15, 29, 0.9); border: 1px dashed var(--primary-cyan); border-radius: var(--radius-md); padding: 1rem; flex-direction: column; gap: 0.75rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span style="font-size: 0.85rem; font-weight: 600; color: var(--primary-cyan);">Enter MongoDB Connection URI (Atlas or Local):</span>
-                                <span style="font-size: 0.75rem; color: var(--text-muted);">(You can also set MONGODB_URI in your .env file)</span>
-                            </div>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <input type="text" id="mongoUriInput" placeholder="mongodb+srv://username:password@cluster0.mongodb.net/?retryWrites=true&w=majority" style="flex: 1; background: rgba(0,0,0,0.5); border: 1px solid var(--border-medium); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; color: #fff; font-family: var(--font-mono); font-size: 0.82rem;">
-                                <button type="button" class="btn-primary" onclick="saveMongoUri()" style="padding: 0.6rem 1.2rem; font-size: 0.82rem;">
-                                    Connect DB
-                                </button>
-                            </div>
-                            <div id="mongoConfigMsg" style="font-size: 0.78rem; font-family: var(--font-mono);"></div>
-                        </div>
-
-                        <!-- Microcontroller Sensor Stream Input Area -->
-                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-                                <label style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
-                                    <span>📡 Microcontroller Stream Text (IR, ACC, Light):</span>
-                                </label>
-                                <!-- Presets -->
-                                <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
-                                    <button type="button" class="btn-ghost" onclick="applyHardwarePreset('user_reading')" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">📋 User Reading (IR:0, ACC:0, Light:-2.00)</button>
-                                    <button type="button" class="btn-ghost" onclick="applyHardwarePreset('flapping')" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">🦅 Motor Flapping</button>
-                                    <button type="button" class="btn-ghost" onclick="applyHardwarePreset('banging')" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">💥 Head Banging</button>
-                                    <button type="button" class="btn-ghost" onclick="applyHardwarePreset('spinning')" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">🌪️ Spinning</button>
+                        <!-- MongoDB Status & Configuration Bar -->
+                        <div class="mongo-status-bar">
+                            <div class="mongo-info-group">
+                                <div id="mongoStatusIndicator" class="mongo-status-pill">
+                                    <span class="pulsing-dot" id="mongoPulsingDot"></span>
+                                    <span id="mongoStatusText">Connecting MongoDB...</span>
+                                </div>
+                                <div class="mongo-meta">
+                                    <span>Database: <strong id="mongoDbName">multisense_db</strong></span>
+                                    <span class="dot-separator">&bull;</span>
+                                    <span>Collection: <strong id="mongoCollName">sensor_telemetry</strong></span>
+                                    <span class="dot-separator">&bull;</span>
+                                    <span>Mode: <strong id="mongoStorageMode" style="color: var(--primary-cyan);">Memory Buffer</strong></span>
                                 </div>
                             </div>
 
-                            <textarea id="rawSensorTextInput" rows="4" style="width: 100%; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 0.85rem; color: #38bdf8; font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.6; resize: vertical;" placeholder="IR: 0&#10;ACC: 0, 0, 0&#10;Light: -2.00 lux">IR: 0
-ACC: 0, 0, 0
-Light: -2.00 lux</textarea>
-
-                            <!-- Instant Live Sensor Diagnostics Badges -->
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.6rem;">
-                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 0.6rem; border-radius: var(--radius-sm);">
-                                    <div style="font-size: 0.72rem; color: var(--text-muted);">🔴 IR / Optical PPG</div>
-                                    <div id="badgeIrStatus" style="font-family: var(--font-mono); font-weight: 700; color: #f43f5e; font-size: 0.88rem;">IR: 0 (No Contact)</div>
-                                </div>
-                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 0.6rem; border-radius: var(--radius-sm);">
-                                    <div style="font-size: 0.72rem; color: var(--text-muted);">⚡ ACC Magnitude</div>
-                                    <div id="badgeAccStatus" style="font-family: var(--font-mono); font-weight: 700; color: var(--primary-cyan); font-size: 0.88rem;">0.00 g (Stationary)</div>
-                                </div>
-                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 0.6rem; border-radius: var(--radius-sm);">
-                                    <div style="font-size: 0.72rem; color: var(--text-muted);">💡 Ambient Light Lux</div>
-                                    <div id="badgeLuxStatus" style="font-family: var(--font-mono); font-weight: 700; color: #fbbf24; font-size: 0.88rem;">0.00 Lux (Dark/Calibrated)</div>
-                                </div>
-                                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 0.6rem; border-radius: var(--radius-sm);">
-                                    <div style="font-size: 0.72rem; color: var(--text-muted);">🏷️ Device Node ID</div>
-                                    <input type="text" id="sensorDeviceId" value="wearable_sensor_node_01" style="width: 100%; background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 600;">
-                                </div>
-                            </div>
-
-                            <!-- Action Trigger Button -->
-                            <button type="button" class="btn-primary" id="btnSendSensorToMlAndDb" onclick="executeSensorStreamInference()" style="padding: 0.95rem; font-size: 1rem; justify-content: center; margin-top: 0.35rem;">
-                                🚀 Ingest Sensors &rarr; Multimodal ML Model &rarr; Save to MongoDB
+                            <button type="button" class="btn-ghost btn-sm" onclick="toggleMongoConfigDrawer()">
+                                ⚙️ Configure MongoDB URI
                             </button>
                         </div>
 
-                        <!-- Real-time MongoDB Documents History Table -->
-                        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <h4 style="font-size: 0.88rem; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
-                                    <span>🗄️ Recent Records in MongoDB Collection (sensor_telemetry)</span>
-                                </h4>
-                                <button type="button" class="btn-ghost" onclick="refreshSensorHistory()" style="font-size: 0.75rem; padding: 0.25rem 0.6rem;">
-                                    🔄 Refresh Records
+                        <!-- MongoDB URI Configuration Drawer (Collapsible) -->
+                        <div id="mongoConfigDrawer" class="mongo-config-drawer" style="display: none;">
+                            <div class="drawer-header">
+                                <span class="drawer-title">Connect MongoDB Atlas or Local MongoDB Database:</span>
+                                <span class="drawer-subtitle">Telemetry records are stored permanently in your MongoDB cluster</span>
+                            </div>
+                            <div class="drawer-form-row">
+                                <input type="text" id="mongoUriInput" placeholder="mongodb+srv://<username>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority" class="code-input">
+                                <button type="button" class="btn-primary btn-sm" onclick="saveMongoUri()">
+                                    Connect Cluster
                                 </button>
                             </div>
-                            <div style="overflow-x: auto; background: rgba(0,0,0,0.3); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); max-height: 280px;">
-                                <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left;">
+                            <div id="mongoConfigMsg" class="drawer-message"></div>
+                        </div>
+
+                        <!-- Microcontroller Sensor Stream Input Bench -->
+                        <div class="sensor-stream-card">
+                            <div class="sensor-bench-header">
+                                <div class="bench-label">
+                                    <span class="terminal-icon">📡</span>
+                                    <span>Microcontroller Serial Stream Input (Arduino Uno / ESP32 / Wearable Node):</span>
+                                </div>
+                                <div class="bench-presets">
+                                    <span class="preset-label">Test Presets:</span>
+                                    <button type="button" class="preset-chip" onclick="applyHardwarePreset('user_reading')">
+                                        📋 User Sample (IR:0, ACC:0, Light:-2)
+                                    </button>
+                                    <button type="button" class="preset-chip" onclick="applyHardwarePreset('flapping')">
+                                        🦅 Motor Flapping (IR:130, High ACC)
+                                    </button>
+                                    <button type="button" class="preset-chip" onclick="applyHardwarePreset('banging')">
+                                        💥 Head Banging (High Sagittal Accel)
+                                    </button>
+                                    <button type="button" class="preset-chip" onclick="applyHardwarePreset('spinning')">
+                                        🌪️ Spinning (Axial Gyro/Accel)
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Raw Serial Stream Textarea -->
+                            <div class="textarea-terminal-wrapper">
+                                <div class="terminal-bar">
+                                    <span class="term-dot red"></span>
+                                    <span class="term-dot yellow"></span>
+                                    <span class="term-dot green"></span>
+                                    <span class="term-title">COM /dev/tty.usbmodem (115200 baud)</span>
+                                </div>
+                                <textarea id="rawSensorTextInput" rows="4" class="sensor-terminal-input" placeholder="IR: 0&#10;ACC: 0, 0, 0&#10;Light: -2.00 lux">IR: 0
+ACC: 0, 0, 0
+Light: -2.00 lux</textarea>
+                            </div>
+
+                            <!-- Live Telemetry Badges (Instant Dynamic Computation) -->
+                            <div class="live-sensor-badges-grid">
+                                <div class="telemetry-badge-card badge-ir">
+                                    <div class="badge-header">
+                                        <span class="badge-icon">🔴</span>
+                                        <span class="badge-label">MAX30102 Optical IR</span>
+                                    </div>
+                                    <div class="badge-value" id="badgeIrStatus">IR: 0</div>
+                                    <div class="badge-sub" id="badgeIrSub">Skin Contact: Disengaged</div>
+                                </div>
+
+                                <div class="telemetry-badge-card badge-acc">
+                                    <div class="badge-header">
+                                        <span class="badge-icon">⚡</span>
+                                        <span class="badge-label">MPU6050 Acceleration</span>
+                                    </div>
+                                    <div class="badge-value" id="badgeAccStatus">0.00 g</div>
+                                    <div class="badge-sub" id="badgeAccSub">Stationary Baseline</div>
+                                </div>
+
+                                <div class="telemetry-badge-card badge-lux">
+                                    <div class="badge-header">
+                                        <span class="badge-icon">💡</span>
+                                        <span class="badge-label">BH1750 Ambient Lux</span>
+                                    </div>
+                                    <div class="badge-value" id="badgeLuxStatus">0.00 Lux</div>
+                                    <div class="badge-sub" id="badgeLuxSub">Ambient Calibrated</div>
+                                </div>
+
+                                <div class="telemetry-badge-card badge-device">
+                                    <div class="badge-header">
+                                        <span class="badge-icon">🏷️</span>
+                                        <span class="badge-label">Device Node ID</span>
+                                    </div>
+                                    <input type="text" id="sensorDeviceId" value="wearable_node_uno_01" class="device-input">
+                                    <div class="badge-sub">Protocol: MultiSense v1.0</div>
+                                </div>
+                            </div>
+
+                            <!-- Action Ingest Button -->
+                            <div class="ingest-action-row">
+                                <button type="button" class="btn-primary btn-large" id="btnSendSensorToMlAndDb" onclick="executeSensorStreamInference()">
+                                    <span>🚀</span>
+                                    <span>Send to Multimodal AI Classifier & Save to MongoDB</span>
+                                </button>
+                            </div>
+
+                            <!-- Backend Output & Actuator Response Inspector -->
+                            <div class="backend-response-inspector" id="backendInspector" style="display: none;">
+                                <div class="inspector-header">
+                                    <span class="inspector-title">⚡ Real-Time Backend Response & Hardware Actuators:</span>
+                                    <span class="inspector-status" id="inspectorStorageStatus">SAVED_TO_MONGODB</span>
+                                </div>
+                                <div class="inspector-grid">
+                                    <div class="inspector-metric">
+                                        <span class="m-label">Computed Accel:</span>
+                                        <strong class="m-val" id="inspAccMag">-</strong>
+                                    </div>
+                                    <div class="inspector-metric">
+                                        <span class="m-label">Calibrated Light:</span>
+                                        <strong class="m-val" id="inspLux">-</strong>
+                                    </div>
+                                    <div class="inspector-metric">
+                                        <span class="m-label">Inferred HR:</span>
+                                        <strong class="m-val" id="inspHr">-</strong>
+                                    </div>
+                                    <div class="inspector-metric">
+                                        <span class="m-label">Arduino Pin 8 (Buzzer):</span>
+                                        <strong class="m-val" id="inspBuzzer">OFF</strong>
+                                    </div>
+                                </div>
+                                <div class="inspector-compact-code" id="inspCompactString">
+                                    Arduino Stream Response: PRED:ArmFlapping | CONF:0.96 | RISK:MEDIUM | BUZZER:0 | DB:SAVED
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Real-time MongoDB Documents History Table -->
+                        <div class="history-table-section">
+                            <div class="history-header">
+                                <div class="history-title">
+                                    <span>🗄️ Sensor Telemetry Records & ML Audit Log</span>
+                                    <span class="record-counter" id="historyCounterBadge">0 records</span>
+                                </div>
+                                <div class="history-controls">
+                                    <button type="button" class="btn-ghost btn-sm" onclick="refreshSensorHistory()">
+                                        <span>🔄</span> Refresh Records
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive-wrapper">
+                                <table class="data-table">
                                     <thead>
-                                        <tr style="border-bottom: 1px solid var(--border-medium); color: var(--text-muted); background: rgba(255,255,255,0.02);">
-                                            <th style="padding: 0.6rem 0.8rem;">Timestamp</th>
-                                            <th style="padding: 0.6rem 0.8rem;">Sensors (IR | ACC | Lux)</th>
-                                            <th style="padding: 0.6rem 0.8rem;">ML Prediction</th>
-                                            <th style="padding: 0.6rem 0.8rem;">Confidence</th>
-                                            <th style="padding: 0.6rem 0.8rem;">Alert Level</th>
-                                            <th style="padding: 0.6rem 0.8rem;">Storage</th>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Sensors (IR | ACC | Lux)</th>
+                                            <th>ML Prediction</th>
+                                            <th>Confidence</th>
+                                            <th>Clinical Risk</th>
+                                            <th>Storage Target</th>
                                         </tr>
                                     </thead>
                                     <tbody id="sensorHistoryTableBody">
                                         <tr>
-                                            <td colspan="6" style="padding: 1.5rem; text-align: center; color: var(--text-dim);">
-                                                Loading sensor telemetry records...
+                                            <td colspan="6" class="table-loading-cell">
+                                                <div class="table-loader">
+                                                    <span class="pulsing-dot"></span>
+                                                    <span>Connecting to backend telemetry stream...</span>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -159,83 +309,105 @@ Light: -2.00 lux</textarea>
                     </div>
                 </div>
 
-                <!-- Tab 1: Video Upload & Automated Classification -->
+                <!-- TAB 1: Video Inference & Pose Kinematics -->
                 <div class="tab-content" id="tab-video">
-                    <div class="video-stage">
-                        <!-- Preset Demo Clips -->
-                        <div class="demo-clips-bar">
+                    <div class="tab-vertical-stack">
+                        <!-- Preset Demo Clips Selector -->
+                        <div class="demo-clips-card">
                             <div class="demo-clips-header">
-                                <span>⚡ Quick Test with Verified SSBD Video Clips:</span>
+                                <span>⚡ Rapid Clinical Verification with SSBD Benchmark Clips:</span>
                             </div>
                             <div class="demo-clips-grid">
                                 <button type="button" class="demo-clip-btn" onclick="loadDemoVideo('arm_flapping_demo.mp4')">
-                                    <span>🦅</span>
-                                    <div>
-                                        <div style="font-weight:700;">Arm Flapping Clip</div>
-                                        <div style="font-size:0.75rem; color: var(--text-muted);">High-frequency flutter</div>
+                                    <span class="clip-emoji">🦅</span>
+                                    <div class="clip-text">
+                                        <div class="clip-title">Arm Flapping Demo</div>
+                                        <div class="clip-sub">High-frequency wrist flutter</div>
                                     </div>
                                 </button>
                                 <button type="button" class="demo-clip-btn" onclick="loadDemoVideo('head_banging_demo.mp4')">
-                                    <span>💥</span>
-                                    <div>
-                                        <div style="font-weight:700;">Head Banging Clip</div>
-                                        <div style="font-size:0.75rem; color: var(--text-muted);">Sagittal cranial pitch</div>
+                                    <span class="clip-emoji">💥</span>
+                                    <div class="clip-text">
+                                        <div class="clip-title">Head Banging Demo</div>
+                                        <div class="clip-sub">Rapid sagittal pitch displacement</div>
                                     </div>
                                 </button>
                                 <button type="button" class="demo-clip-btn" onclick="loadDemoVideo('spinning_demo.mp4')">
-                                    <span>🌪️</span>
-                                    <div>
-                                        <div style="font-weight:700;">Spinning Clip</div>
-                                        <div style="font-size:0.75rem; color: var(--text-muted);">Continuous axial rotation</div>
+                                    <span class="clip-emoji">🌪️</span>
+                                    <div class="clip-text">
+                                        <div class="clip-title">Spinning Demo</div>
+                                        <div class="clip-sub">Continuous axial body rotation</div>
                                     </div>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Drop Zone -->
+                        <!-- Drop Zone for Custom Video Upload -->
                         <div class="drop-zone" id="videoDropZone">
                             <div class="drop-icon">📹</div>
-                            <h3>Drop Video File Here or Click to Browse</h3>
-                            <p>Supports MP4, AVI, MOV (Extracts 33 skeletal landmarks via MediaPipe)</p>
+                            <h3>Drag & Drop Video File or Click to Browse</h3>
+                            <p>Supports MP4, AVI, MOV &bull; Analyzes 33 MediaPipe Skeletal Landmarks & Biomechanical Kinematics</p>
                             <input type="file" id="videoFileInput" accept=".mp4,.avi,.mov,.mkv" style="display: none;">
                         </div>
 
-                        <div id="selectedFileName" style="display: none; font-size: 0.85rem; color: var(--primary-cyan); font-family: var(--font-mono); text-align: center;"></div>
+                        <div id="selectedFileName" class="selected-file-label" style="display: none;"></div>
 
-                        <!-- Video Player Preview -->
+                        <!-- Video Player Preview Stage -->
                         <div class="video-preview-wrapper" id="videoPreviewWrapper">
-                            <video id="videoPlayer" controls loop muted></video>
+                            <video id="videoPlayer" controls loop muted playsinline></video>
                         </div>
 
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <select id="videoModelChoice" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-medium); color: #fff; padding: 0.8rem; border-radius: var(--radius-md); font-family: var(--font-heading); font-weight: 600;">
-                                <option value="gan_augmented">GAN-Augmented RF (87.98% Accuracy - Recommended)</option>
-                                <option value="baseline">Baseline RF (84.65% Accuracy - No GAN)</option>
+                        <!-- Extracted Kinematic Features Grid (Populated upon analysis) -->
+                        <div id="videoKinematicsGrid" class="video-kinematics-grid" style="display: none;">
+                            <div class="kin-feature-pill">
+                                <span class="kin-label">Extracted Frames:</span>
+                                <strong class="kin-val" id="vidFramesExtracted">60</strong>
+                            </div>
+                            <div class="kin-feature-pill">
+                                <span class="kin-label">Wrist Velocity Mean:</span>
+                                <strong class="kin-val" id="vidWristVel">0.52 m/s</strong>
+                            </div>
+                            <div class="kin-feature-pill">
+                                <span class="kin-label">Head Pitch Variance:</span>
+                                <strong class="kin-val" id="vidHeadPitch">0.03 rad²</strong>
+                            </div>
+                            <div class="kin-feature-pill">
+                                <span class="kin-label">Movement Intensity:</span>
+                                <strong class="kin-val" id="vidMovementIntensity">0.45</strong>
+                            </div>
+                        </div>
+
+                        <!-- Model Selection & Analysis Trigger -->
+                        <div class="action-control-group">
+                            <select id="videoModelChoice" class="custom-select">
+                                <option value="gan_augmented">GAN-Augmented RF (87.98% Acc &bull; +5.67% ArmFlapping Recall)</option>
+                                <option value="baseline">Baseline RF (84.65% Acc &bull; No Augmentation)</option>
                             </select>
-                            <button type="button" class="btn-primary" id="analyzeVideoBtn" style="flex: 1;">
-                                📹 Analyze Video Kinematics
+                            <button type="button" class="btn-primary" id="analyzeVideoBtn">
+                                <span>📹</span>
+                                <span>Run Full MediaPipe Pose Kinematic Extraction</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tab 2: Multimodal Sensor Suite (MAX30102 + MPU6050 + BH1750) -->
+                <!-- TAB 2: Multimodal Biosensors Suite -->
                 <div class="tab-content" id="tab-telemetry">
-                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <p style="font-size: 0.85rem; color: var(--text-muted);">Simulate real-time physiological & ambient sensory telemetry:</p>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <button type="button" class="btn-ghost" onclick="applySensorPreset('calm')">Calm Baseline</button>
-                                <button type="button" class="btn-ghost" onclick="applySensorPreset('flapping')">Motor Flapping</button>
-                                <button type="button" class="btn-ghost" onclick="applySensorPreset('meltdown')" style="color: var(--status-red); border-color: rgba(239, 68, 68, 0.4);">Meltdown Shock</button>
+                    <div class="tab-vertical-stack">
+                        <div class="section-subheader">
+                            <p>Simulate synchronized physiological & ambient sensory telemetry during ASD episodes:</p>
+                            <div class="preset-btn-group">
+                                <button type="button" class="btn-ghost btn-sm" onclick="applySensorPreset('calm')">Calm Baseline</button>
+                                <button type="button" class="btn-ghost btn-sm" onclick="applySensorPreset('flapping')">Motor Agitation</button>
+                                <button type="button" class="btn-ghost btn-sm btn-danger" onclick="applySensorPreset('meltdown')">Meltdown Shock</button>
                             </div>
                         </div>
 
                         <div class="telemetry-grid">
-                            <!-- MAX30102 Heart Rate Box with Real-time ECG -->
+                            <!-- Heart Rate Card with Real-Time ECG Wave -->
                             <div class="sensor-box">
                                 <div class="sensor-header">
-                                    <span class="sensor-name">❤️ MAX30102 Heart Rate</span>
+                                    <span class="sensor-name">❤️ MAX30102 Heart Rate (PPG)</span>
                                     <span class="sensor-val-display" id="hrDisplay" style="color: var(--status-green);">80 BPM</span>
                                 </div>
                                 <div class="ecg-canvas-container">
@@ -243,20 +415,20 @@ Light: -2.00 lux</textarea>
                                 </div>
                                 <div class="slider-group">
                                     <div class="slider-labels">
-                                        <span>Resting (60 BPM)</span>
+                                        <span>Resting (50 BPM)</span>
                                         <span>Tachycardia (180 BPM)</span>
                                     </div>
                                     <input type="range" id="hrSlider" min="50" max="180" value="80" step="1">
                                 </div>
                             </div>
 
-                            <!-- MAX30102 SpO2 Box -->
+                            <!-- SpO2 Blood Oxygen Card -->
                             <div class="sensor-box">
                                 <div class="sensor-header">
                                     <span class="sensor-name">🩸 Blood Oxygen (SpO₂)</span>
                                     <span class="sensor-val-display" id="spo2Display" style="color: var(--primary-cyan);">98.0%</span>
                                 </div>
-                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Monitors respiratory suppression during acute distress episodes.</p>
+                                <p class="sensor-desc">Monitors respiratory suppression during acute distress or meltdown shock.</p>
                                 <div class="slider-group" style="margin-top: auto;">
                                     <div class="slider-labels">
                                         <span>Hypoxia (90%)</span>
@@ -266,29 +438,29 @@ Light: -2.00 lux</textarea>
                                 </div>
                             </div>
 
-                            <!-- MPU6050 Accelerometer Box -->
+                            <!-- MPU6050 Accelerometer Card -->
                             <div class="sensor-box">
                                 <div class="sensor-header">
                                     <span class="sensor-name">📐 MPU6050 Linear Acceleration</span>
                                     <span class="sensor-val-display" id="accDisplay" style="color: var(--status-amber);">1.2 g</span>
                                 </div>
-                                <p style="font-size: 0.8rem; color: var(--text-muted);">Detects rapid wrist oscillation independent of camera occlusion.</p>
+                                <p class="sensor-desc">Overcomes camera occlusion by measuring direct wrist kinetic acceleration.</p>
                                 <div class="slider-group" style="margin-top: auto;">
                                     <div class="slider-labels">
-                                        <span>Sedentary (0.5g)</span>
+                                        <span>Stationary (0.5g)</span>
                                         <span>Violent Flutter (6.0g)</span>
                                     </div>
                                     <input type="range" id="accSlider" min="0.5" max="6.0" value="1.2" step="0.1">
                                 </div>
                             </div>
 
-                            <!-- MPU6050 Gyroscope & BH1750 Lux Box -->
+                            <!-- BH1750 Ambient Lux & Gyroscope Card -->
                             <div class="sensor-box">
                                 <div class="sensor-header">
-                                    <span class="sensor-name">💡 BH1750 Ambient Lux</span>
+                                    <span class="sensor-name">💡 BH1750 Ambient Lux & Gyro</span>
                                     <span class="sensor-val-display" id="luxDisplay" style="color: #fbbf24;">350 Lux</span>
                                 </div>
-                                <span id="luxWarningBadge" style="display: none; font-size: 0.75rem; color: var(--status-red); background: rgba(239, 68, 68, 0.15); padding: 0.2rem 0.5rem; border-radius: 4px;">⚠️ Photophobia Trigger Level</span>
+                                <span id="luxWarningBadge" class="lux-warning" style="display: none;">⚠️ Sensory Photophobia Trigger Detected</span>
                                 <div class="slider-group">
                                     <div class="slider-labels">
                                         <span>Dim (50 Lux)</span>
@@ -299,7 +471,7 @@ Light: -2.00 lux</textarea>
 
                                 <div class="slider-group" style="margin-top: 0.75rem;">
                                     <div class="slider-labels">
-                                        <span>Rotational Yaw Rate</span>
+                                        <span>Rotational Yaw Velocity</span>
                                         <span id="gyroDisplay" style="font-family: var(--font-mono); font-weight: 600;">0.20 rad/s</span>
                                     </div>
                                     <input type="range" id="gyroSlider" min="0" max="4.0" value="0.2" step="0.05">
@@ -308,22 +480,24 @@ Light: -2.00 lux</textarea>
                         </div>
 
                         <button type="button" class="btn-primary" id="predictMultimodalBtn" onclick="executeMultimodalPrediction()">
-                            ⚡ Execute Sensor Fusion Diagnosis (Model Accuracy: 97.44%)
+                            <span>⚡</span>
+                            <span>Execute Multimodal Sensor Fusion Diagnosis (Accuracy: 97.44%)</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Tab 3: Biomechanical Kinematic Lab -->
+                <!-- TAB 3: Biomechanical Kinematic Lab -->
                 <div class="tab-content" id="tab-kinematics">
-                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div style="display: flex; gap: 0.5rem;">
-                                <button type="button" class="btn-ghost" onclick="applyKinematicPreset('ArmFlapping')">🦅 Arm Flapping</button>
-                                <button type="button" class="btn-ghost" onclick="applyKinematicPreset('HeadBanging')">💥 Head Banging</button>
-                                <button type="button" class="btn-ghost" onclick="applyKinematicPreset('Spinning')">🌪️ Spinning</button>
+                    <div class="tab-vertical-stack">
+                        <div class="section-subheader">
+                            <div class="preset-btn-group">
+                                <button type="button" class="btn-ghost btn-sm" onclick="applyKinematicPreset('ArmFlapping')">🦅 Arm Flapping</button>
+                                <button type="button" class="btn-ghost btn-sm" onclick="applyKinematicPreset('HeadBanging')">💥 Head Banging</button>
+                                <button type="button" class="btn-ghost btn-sm" onclick="applyKinematicPreset('Spinning')">🌪️ Spinning</button>
                             </div>
-                            <label style="font-size: 0.82rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-                                <input type="checkbox" id="livePredictToggle" checked> Live Real-Time Prediction
+                            <label class="toggle-label">
+                                <input type="checkbox" id="livePredictToggle" checked>
+                                <span>Live Real-Time Inference</span>
                             </label>
                         </div>
 
@@ -331,7 +505,7 @@ Light: -2.00 lux</textarea>
                             <div class="sensor-box">
                                 <div class="slider-labels">
                                     <span>Wrist Velocity Mean</span>
-                                    <strong id="kinWristVelDisp" style="font-family: var(--font-mono); color: var(--status-amber);">0.52 m/s</strong>
+                                    <strong id="kinWristVelDisp" class="disp-cyan">0.52 m/s</strong>
                                 </div>
                                 <input type="range" id="kinWristVel" min="0.05" max="1.5" value="0.52" step="0.01">
                             </div>
@@ -339,7 +513,7 @@ Light: -2.00 lux</textarea>
                             <div class="sensor-box">
                                 <div class="slider-labels">
                                     <span>Head Sagittal Pitch Variance</span>
-                                    <strong id="kinHeadPitchDisp" style="font-family: var(--font-mono); color: var(--status-red);">0.03 rad²</strong>
+                                    <strong id="kinHeadPitchDisp" class="disp-red">0.03 rad²</strong>
                                 </div>
                                 <input type="range" id="kinHeadPitch" min="0.01" max="0.7" value="0.03" step="0.01">
                             </div>
@@ -347,7 +521,7 @@ Light: -2.00 lux</textarea>
                             <div class="sensor-box">
                                 <div class="slider-labels">
                                     <span>Head Velocity Mean</span>
-                                    <strong id="kinHeadVelDisp" style="font-family: var(--font-mono); color: var(--primary-cyan);">0.12 m/s</strong>
+                                    <strong id="kinHeadVelDisp" class="disp-cyan">0.12 m/s</strong>
                                 </div>
                                 <input type="range" id="kinHeadVel" min="0.05" max="1.2" value="0.12" step="0.01">
                             </div>
@@ -355,28 +529,28 @@ Light: -2.00 lux</textarea>
                             <div class="sensor-box">
                                 <div class="slider-labels">
                                     <span>Angular Centroid Velocity</span>
-                                    <strong id="kinAngularVelDisp" style="font-family: var(--font-mono); color: var(--primary-purple);">0.08 rad/s</strong>
+                                    <strong id="kinAngularVelDisp" class="disp-purple">0.08 rad/s</strong>
                                 </div>
                                 <input type="range" id="kinAngularVel" min="0.02" max="1.8" value="0.08" step="0.02">
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <select id="kinModelChoice" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-medium); color: #fff; padding: 0.8rem; border-radius: var(--radius-md); font-family: var(--font-heading); font-weight: 600;">
+                        <div class="action-control-group">
+                            <select id="kinModelChoice" class="custom-select">
                                 <option value="gan_augmented">GAN-Augmented RF (87.98% Acc)</option>
                                 <option value="baseline">Baseline RF (84.65% Acc)</option>
                             </select>
-                            <button type="button" class="btn-primary" onclick="executeKinematicPrediction()" style="flex: 1;">
-                                Run Kinematic Classification
+                            <button type="button" class="btn-primary" onclick="executeKinematicPrediction()">
+                                <span>Run Kinematic Classification</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tab 4: Conditional Bi-GRU TimeGAN Generator -->
+                <!-- TAB 4: Conditional Bi-GRU TimeGAN Generator -->
                 <div class="tab-content" id="tab-gan">
-                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="tab-vertical-stack">
+                        <p class="section-explanation">
                             The <strong>Conditional Bi-GRU TimeGAN</strong> synthesizes 60-frame $(T \times 132)$ landmark trajectories to solve class imbalance in SSBD without mode collapse.
                         </p>
 
@@ -387,8 +561,8 @@ Light: -2.00 lux</textarea>
 
                         <div class="telemetry-grid">
                             <div class="sensor-box">
-                                <label style="font-size: 0.82rem; color: var(--text-muted);">Condition Behavior Class:</label>
-                                <select id="ganClassSelect" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-subtle); color: #fff; padding: 0.7rem; border-radius: var(--radius-sm); font-family: var(--font-heading); font-weight: 600;">
+                                <label class="input-label">Condition Behavior Class:</label>
+                                <select id="ganClassSelect" class="custom-select">
                                     <option value="ArmFlapping">Arm Flapping (Minority Class)</option>
                                     <option value="HeadBanging">Head Banging (Self-Injurious SIB)</option>
                                     <option value="Spinning">Spinning (Vestibular Seeking)</option>
@@ -396,27 +570,28 @@ Light: -2.00 lux</textarea>
                             </div>
 
                             <div class="sensor-box">
-                                <label style="font-size: 0.82rem; color: var(--text-muted);">Batch Sequences to Generate:</label>
-                                <input type="number" id="ganCountInput" min="1" max="20" value="5" style="background: rgba(0,0,0,0.5); border: 1px solid var(--border-subtle); color: #fff; padding: 0.7rem; border-radius: var(--radius-sm); font-family: var(--font-mono);">
+                                <label class="input-label">Batch Sequences to Generate:</label>
+                                <input type="number" id="ganCountInput" min="1" max="20" value="5" class="number-input">
                             </div>
                         </div>
 
-                        <div id="ganResultInfo" style="display: none; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); padding: 0.9rem; border-radius: var(--radius-sm); font-size: 0.85rem;"></div>
+                        <div id="ganResultInfo" class="gan-result-box" style="display: none;"></div>
 
                         <button type="button" class="btn-primary" id="generateGanBtn" onclick="executeGanGeneration()">
-                            🧬 Synthesize Biomechanical Trajectories
+                            <span>🧬</span>
+                            <span>Synthesize Biomechanical Trajectories</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Tab 5: Benchmark Evaluation & Scientific Metrics -->
+                <!-- TAB 5: Benchmark Evaluation & Scientific Metrics -->
                 <div class="tab-content" id="tab-benchmarks">
-                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-                        <p style="font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="tab-vertical-stack">
+                        <p class="section-explanation">
                             Rigorous evaluation across 3 experimental configurations on the untouched real-world test partition (391 sequences):
                         </p>
 
-                        <div style="overflow-x: auto;">
+                        <div class="table-responsive-wrapper">
                             <table class="benchmark-table">
                                 <thead>
                                     <tr>
@@ -431,33 +606,33 @@ Light: -2.00 lux</textarea>
                                     <tr>
                                         <td><strong>Exp A: Baseline</strong></td>
                                         <td>1,816 Real</td>
-                                        <td style="color: var(--text-muted);">84.65%</td>
+                                        <td>84.65%</td>
                                         <td>0.7883</td>
-                                        <td style="color: var(--status-amber);">73.58%</td>
+                                        <td class="recall-amber">73.58%</td>
                                     </tr>
-                                    <tr style="background: rgba(59, 130, 246, 0.1);">
+                                    <tr class="highlight-row-blue">
                                         <td><strong>Exp B: GAN-Augmented</strong></td>
                                         <td>3,016 (Real + 1,200 GAN)</td>
-                                        <td style="color: #60a5fa; font-weight:700;">87.98%</td>
-                                        <td style="color: #60a5fa; font-weight:700;">0.8307</td>
-                                        <td style="color: #60a5fa; font-weight:700;">79.25% (+5.67%)</td>
+                                        <td class="acc-blue">87.98%</td>
+                                        <td class="acc-blue">0.8307</td>
+                                        <td class="acc-blue">79.25% (+5.67%)</td>
                                     </tr>
-                                    <tr style="background: rgba(16, 185, 129, 0.1);">
+                                    <tr class="highlight-row-green">
                                         <td><strong>Exp C: Multimodal Fusion</strong></td>
                                         <td>Video + HR + IMU + Lux</td>
-                                        <td style="color: var(--status-green); font-weight:700;">97.44%</td>
-                                        <td style="color: var(--status-green); font-weight:700;">0.9596</td>
-                                        <td style="color: var(--status-green); font-weight:700;">94.34%</td>
+                                        <td class="acc-green">97.44%</td>
+                                        <td class="acc-green">0.9596</td>
+                                        <td class="acc-green">94.34%</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); font-size: 0.83rem; line-height: 1.6;">
-                            <strong>Why 84.65% ➔ 87.98% ➔ 97.44% proves genuine research:</strong><br>
-                            • In-the-wild pediatric footage suffers from high class imbalance and movement overlap.<br>
-                            • The Conditional Pose GAN directly balances minority class representations, improving ArmFlapping F1 from 56.9% to 65.1%.<br>
-                            • Multimodal fusion bridges camera occlusion gaps during severe sensory overload meltdowns.
+                        <div class="benchmark-callout">
+                            <strong>Why 84.65% &rarr; 87.98% &rarr; 97.44% proves genuine clinical research:</strong><br>
+                            &bull; In-the-wild pediatric footage suffers from high class imbalance and movement overlap.<br>
+                            &bull; The Conditional Pose GAN directly balances minority class representations, improving ArmFlapping F1 from 56.9% to 65.1%.<br>
+                            &bull; Multimodal fusion bridges camera occlusion gaps during severe sensory overload meltdowns.
                         </div>
                     </div>
                 </div>
@@ -465,53 +640,58 @@ Light: -2.00 lux</textarea>
 
             <!-- Right Column: Persistent Real-Time Diagnostic Hub -->
             <aside class="diagnostic-hub">
-                <div class="glass-card">
+                <div class="glass-card hub-card" id="diagnosticHubCard">
                     <div class="hub-title">
-                        <span>📊 Real-Time Diagnostic Hub</span>
-                        <span id="activeModelTag" style="font-size: 0.72rem; background: rgba(59, 130, 246, 0.2); padding: 0.2rem 0.55rem; border-radius: 6px; color: #93c5fd; font-family: var(--font-mono);">GAN-Augmented RF</span>
+                        <span class="hub-header-text">
+                            <span class="hub-pulse"></span>
+                            <span>Real-Time Diagnostic Hub</span>
+                        </span>
+                        <span id="activeModelTag" class="model-tag">Multimodal Fusion RF</span>
                     </div>
 
-                    <!-- Main Classification Readout -->
-                    <div class="classification-display" style="margin-top: 1.25rem;">
+                    <!-- Main Classification Readout Badge -->
+                    <div class="classification-display" id="classificationDisplayBox">
                         <div id="diagnosticBadge" class="classification-badge badge-arm">ArmFlapping</div>
-                        <div class="confidence-readout">Diagnostic Confidence: <strong id="confidenceReadout">89.4%</strong></div>
+                        <div class="confidence-readout">
+                            Diagnostic Confidence: <strong id="confidenceReadout">89.4%</strong>
+                        </div>
                     </div>
 
-                    <!-- Per-Class Probabilities -->
-                    <div class="prob-list" style="margin-top: 1.5rem;">
+                    <!-- Per-Class Probabilities Progress Bars -->
+                    <div class="prob-list">
                         <div class="prob-entry">
                             <div class="prob-header">
-                                <span>Arm Flapping (Motor Overflow)</span>
-                                <span id="probArm" style="font-family: var(--font-mono); color: var(--status-amber);">89.4%</span>
+                                <span>Arm Flapping (Motor Agitation)</span>
+                                <span id="probArm" class="prob-percent color-amber">89.4%</span>
                             </div>
                             <div class="prob-bar-rail">
-                                <div class="prob-bar-fill" id="fillArm" style="width: 89.4%; background: var(--status-amber);"></div>
+                                <div class="prob-bar-fill fill-amber" id="fillArm" style="width: 89.4%;"></div>
                             </div>
                         </div>
 
                         <div class="prob-entry">
                             <div class="prob-header">
                                 <span>Head Banging (Self-Injurious SIB)</span>
-                                <span id="probHead" style="font-family: var(--font-mono); color: var(--status-red);">6.2%</span>
+                                <span id="probHead" class="prob-percent color-red">6.2%</span>
                             </div>
                             <div class="prob-bar-rail">
-                                <div class="prob-bar-fill" id="fillHead" style="width: 6.2%; background: var(--status-red);"></div>
+                                <div class="prob-bar-fill fill-red" id="fillHead" style="width: 6.2%;"></div>
                             </div>
                         </div>
 
                         <div class="prob-entry">
                             <div class="prob-header">
                                 <span>Spinning (Vestibular Seeking)</span>
-                                <span id="probSpin" style="font-family: var(--font-mono); color: var(--primary-cyan);">4.4%</span>
+                                <span id="probSpin" class="prob-percent color-cyan">4.4%</span>
                             </div>
                             <div class="prob-bar-rail">
-                                <div class="prob-bar-fill" id="fillSpin" style="width: 4.4%; background: var(--primary-cyan);"></div>
+                                <div class="prob-bar-fill fill-cyan" id="fillSpin" style="width: 4.4%;"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Clinical Risk Alert -->
-                    <div class="alert-card" id="clinicalAlertCard" style="margin-top: 1.5rem;">
+                    <!-- Clinical Risk & Caregiver Action Alert Card -->
+                    <div class="alert-card" id="clinicalAlertCard">
                         <div class="alert-title" id="alertTitle">
                             ⚠️ MEDIUM RISK: Motor Agitation & Sensory Overflow
                         </div>
@@ -522,6 +702,20 @@ Light: -2.00 lux</textarea>
                             <strong>Caregiver Action:</strong> Offer sensory decompression tools (weighted lap pad, sensory compression vest, or fidgets).
                         </div>
                     </div>
+
+                    <!-- Hardware Actuator & Alert Feedback Pill -->
+                    <div class="actuator-feedback-card" id="actuatorFeedbackCard">
+                        <div class="actuator-item">
+                            <span class="act-icon">🔊</span>
+                            <span class="act-name">Auditory Buzzer:</span>
+                            <strong class="act-status" id="hubBuzzerStatus">INACTIVE (0)</strong>
+                        </div>
+                        <div class="actuator-item">
+                            <span class="act-icon">💡</span>
+                            <span class="act-name">Visual Pin 13 LED:</span>
+                            <strong class="act-status" id="hubLedStatus">NORMAL GREEN</strong>
+                        </div>
+                    </div>
                 </div>
             </aside>
         </main>
@@ -529,20 +723,127 @@ Light: -2.00 lux</textarea>
 
     <!-- Host Settings Modal -->
     <div class="modal-backdrop" id="settingsModal">
-        <div class="modal-content">
-            <h2>⚙️ Host & API Configuration</h2>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                Specify the remote or local FastAPI backend endpoint. Ideal when deploying the frontend to Vercel/Netlify while hosting the backend on Render/AWS.
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>⚙️ Backend Host & API Configuration</h2>
+                <button type="button" class="modal-close-btn" id="closeSettingsBtn">&times;</button>
+            </div>
+            <p class="modal-desc">
+                Specify the FastAPI backend endpoint. By default, it automatically connects to the same host or local development server.
             </p>
-            <label style="font-size: 0.82rem; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">API Base URL:</label>
-            <input type="text" id="customApiInput" placeholder="http://127.0.0.1:8000 or https://your-backend.onrender.com">
-            <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
-                <button type="button" class="btn-ghost" id="closeSettingsBtn">Cancel</button>
-                <button type="button" class="btn-primary" id="saveApiUrlBtn" style="width: auto; padding: 0.6rem 1.25rem;">Save & Connect</button>
+
+            <div class="quick-preset-bar">
+                <span class="quick-label">Quick Switch:</span>
+                <button type="button" class="preset-chip" onclick="setApiPreset('http://127.0.0.1:8000')">Localhost (Port 8000)</button>
+                <button type="button" class="preset-chip" onclick="setApiPreset(window.location.origin)">Current Domain</button>
+            </div>
+
+            <label class="modal-input-label">FastAPI Base URL:</label>
+            <input type="text" id="customApiInput" placeholder="http://127.0.0.1:8000 or https://multisense-clinical-ai.onrender.com" class="code-input">
+
+            <div class="connection-test-result" id="connectionTestResult"></div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-ghost" onclick="testCurrentEndpoint()">🔌 Test Connection</button>
+                <button type="button" class="btn-primary" id="saveApiUrlBtn" style="width: auto;">Save & Connect</button>
             </div>
         </div>
     </div>
 
+    <!-- Hosting Deployment Guide Modal -->
+    <div class="modal-backdrop" id="hostingGuideModal">
+        <div class="modal-content hosting-guide-content glass-card">
+            <div class="modal-header">
+                <h2>🚀 How & Where to Host MultiSense Properly</h2>
+                <button type="button" class="modal-close-btn" id="closeHostingGuideBtn">&times;</button>
+            </div>
+
+            <div class="guide-scrollable-body">
+                <!-- Option 1: Recommended All-in-One on Render -->
+                <div class="guide-card recommend-card">
+                    <div class="guide-badge-row">
+                        <span class="badge-recommended">⭐ BEST CHOICE (100% Free / Ready in 5 Mins)</span>
+                        <span class="badge-tag">Render.com</span>
+                    </div>
+                    <h3>Option 1: Deploy Full Stack to Render Web Service</h3>
+                    <p>
+                        Since this repository already has <code>render.yaml</code> and <code>Dockerfile</code>, Render will build Python 3.12, install OpenCV + PyTorch, and host <strong>both the Backend API and Frontend</strong> together on a single HTTPS URL with zero CORS issues!
+                    </p>
+                    <ol class="guide-steps">
+                        <li>Push your code to GitHub: <code>git push origin main</code></li>
+                        <li>Go to <a href="https://render.com" target="_blank" class="guide-link">Render.com</a> &rarr; Click <strong>New +</strong> &rarr; <strong>Web Service</strong>.</li>
+                        <li>Connect your GitHub repository.</li>
+                        <li>Configure:
+                            <ul>
+                                <li><strong>Environment:</strong> <code>Python 3</code> (or Docker)</li>
+                                <li><strong>Build Command:</strong> <code>pip install -r requirements.txt</code></li>
+                                <li><strong>Start Command:</strong> <code>uvicorn MultiSense.api.main:app --host 0.0.0.0 --port $PORT</code></li>
+                            </ul>
+                        </li>
+                        <li>Under <strong>Environment Variables</strong>, add:
+                            <ul>
+                                <li><code>PYTHON_VERSION</code> = <code>3.12.0</code></li>
+                                <li><code>MONGODB_URI</code> = <i>(Your MongoDB Atlas connection string)</i></li>
+                            </ul>
+                        </li>
+                        <li>Click <strong>Deploy Web Service</strong>. You will get a live URL: <code>https://your-app.onrender.com</code>!</li>
+                    </ol>
+                </div>
+
+                <!-- Option 2: Decoupled (Vercel Frontend + Render Backend) -->
+                <div class="guide-card">
+                    <div class="guide-badge-row">
+                        <span class="badge-tag">Vercel + Render</span>
+                    </div>
+                    <h3>Option 2: Decoupled Deployment</h3>
+                    <p>
+                        Host the static frontend on <strong>Vercel / Netlify / GitHub Pages</strong> and the FastAPI backend on <strong>Render / Railway</strong>:
+                    </p>
+                    <ul class="guide-list">
+                        <li>Import repository into <strong>Vercel</strong> &rarr; Set Root Directory to <code>MultiSense/frontend</code>.</li>
+                        <li>Deploy backend to Render as shown above.</li>
+                        <li>In your Vercel frontend, click <strong>⚙️ API Endpoint</strong> at the top and paste your Render URL!</li>
+                    </ul>
+                </div>
+
+                <!-- Option 3: Docker on AWS / DigitalOcean / Cloud Run -->
+                <div class="guide-card">
+                    <div class="guide-badge-row">
+                        <span class="badge-tag">Docker / VPS / Cloud Run</span>
+                    </div>
+                    <h3>Option 3: DigitalOcean Droplet / AWS Lightsail / Google Cloud Run</h3>
+                    <p>
+                        Deploy the included <code>Dockerfile</code> on any standard Linux container host:
+                    </p>
+                    <div class="code-snippet-box">
+                        <code>docker build -t multisense-ai .</code><br>
+                        <code>docker run -d -p 8000:8000 -e MONGODB_URI="your_uri" multisense-ai</code>
+                    </div>
+                </div>
+
+                <!-- MongoDB Atlas Guide -->
+                <div class="guide-card">
+                    <div class="guide-badge-row">
+                        <span class="badge-tag">Database</span>
+                    </div>
+                    <h3>Setting up Free MongoDB Atlas Telemetry Storage</h3>
+                    <ol class="guide-steps">
+                        <li>Sign up at <a href="https://cloud.mongodb.com" target="_blank" class="guide-link">MongoDB Atlas</a> and create a free <strong>M0 Shared Cluster</strong>.</li>
+                        <li>Under <strong>Network Access</strong>, add IP Address <code>0.0.0.0/0</code> (Allow Access from Anywhere).</li>
+                        <li>Under <strong>Database Access</strong>, create a database user (e.g. <code>multisense_user</code>).</li>
+                        <li>Click <strong>Connect</strong> &rarr; <strong>Drivers (Python)</strong> &rarr; Copy connection string.</li>
+                        <li>Paste it in <strong>⚙️ Configure MongoDB URI</strong> on the dashboard or add to <code>.env</code> file.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" onclick="closeHostingGuide()">Got it, Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="js/visualizer.js"></script>
     <script src="js/app.js"></script>
 </body>
