@@ -1631,3 +1631,67 @@ input[type="range"]::-webkit-slider-thumb:hover {
     color: #38bdf8;
     line-height: 1.6;
 }
+
+/* =========================================================
+   Live Inbound Hardware Stream Specifics
+   ========================================================= */
+.live-inbound-card {
+    background: linear-gradient(135deg, rgba(8, 14, 28, 0.95), rgba(15, 23, 42, 0.85));
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    box-shadow: 0 8px 32px -8px rgba(6, 182, 212, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.live-card-pulse {
+    animation: inbound-pulse 1.2s ease-out;
+}
+
+@keyframes inbound-pulse {
+    0% { border-color: var(--primary-cyan); box-shadow: 0 0 30px rgba(6, 182, 212, 0.6); }
+    100% { border-color: rgba(6, 182, 212, 0.35); box-shadow: 0 8px 32px -8px rgba(6, 182, 212, 0.2); }
+}
+
+.inbound-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.35);
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+}
+
+.arduino-guide-banner {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: var(--radius-md);
+    padding: 0.95rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.code-snippet-inline {
+    background: #040810;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0.25rem 0;
+}
+.code-snippet-inline code {
+    color: #38bdf8;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+}
+
+.manual-bench-card {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px dashed var(--border-medium);
+}
+

@@ -134,6 +134,8 @@ function initTabs() {
 /* =========================================================
    3. AUTO-SYNC & LIVE STREAM TELEMETRY ENGINE
    ========================================================= */
+let totalInboundPackets = 0;
+
 function startAutoSyncLoop() {
     if (syncTimer) clearInterval(syncTimer);
     syncTimer = setInterval(async () => {
@@ -141,7 +143,7 @@ function startAutoSyncLoop() {
             await pollLiveTelemetry();
         }
         checkBackendHealth();
-    }, 2500);
+    }, 1500); // Poll every 1.5s for snappy live stream response
 }
 
 async function pollLiveTelemetry() {
@@ -168,34 +170,110 @@ async function pollLiveTelemetry() {
 }
 
 function onNewTelemetryStreamReceived(record) {
+    totalInboundPackets++;
     const s = record.input_sensors || {};
     const comp = record.computed_features || {};
     const ml = record.ml_output || {};
     const alert = record.clinical_alert || {};
+    const timeStr = new Date(record.timestamp || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-    // 1. Update live sensor badges
+    // 1. Visual Card Glow Pulse on incoming packet
+    const liveCard = document.getElementById("liveInboundCard");
+    if (liveCard) {
+        liveCard.classList.remove("live-card-pulse");
+        void liveCard.offsetWidth;
+        liveCard.classList.add("live-card-pulse");
+    }
+
+    // 2. Update Feed Header Status
+    const feedBadgeText = document.getElementById("inboundFeedText");
+    const lastTime = document.getElementById("inboundLastTime");
+    const deviceLabel = document.getElementById("inboundDeviceLabel");
+    const storageBadge = document.getElementById("inboundStorageBadge");
+
+    if (feedBadgeText) feedBadgeText.innerText = `Stream Active (Packet #${totalInboundPackets})`;
+    if (lastTime) lastTime.innerText = `${timeStr} (Live)`;
+    if (deviceLabel) deviceLabel.innerText = record.device_id || "arduino_uno";
+    if (storageBadge) {
+        storageBadge.innerText = record.storage_status === "SAVED_TO_MONGODB" ? "MONGODB CLUSTER" : "MEMORY BUFFER";
+        storageBadge.style.color = record.storage_status === "SAVED_TO_MONGODB" ? "var(--status-green)" : "var(--status-amber)";
+    }
+
+    // 3. Update live sensor badges
     const badgeIr = document.getElementById("badgeIrStatus");
+    const badgeIrSub = document.getElementById("badgeIrSub");
     const badgeAcc = document.getElementById("badgeAccStatus");
+    const badgeAccSub = document.getElementById("badgeAccSub");
     const badgeLux = document.getElementById("badgeLuxStatus");
+    const badgeLuxSub = document.getElementById("badgeLuxSub");
+    const badgeHr = document.getElementById("badgeHrStatus");
 
     if (badgeIr && s.ir !== undefined) {
         badgeIr.innerText = `IR: ${s.ir}`;
+        if (badgeIrSub) badgeIrSub.innerText = s.ir > 10 ? "Optical PPG Engaged" : "Skin Contact: Disengaged";
     }
     if (badgeAcc && comp.acc_magnitude_g !== undefined) {
         badgeAcc.innerText = `${comp.acc_magnitude_g} g`;
+        if (badgeAccSub) {
+            badgeAccSub.innerText = comp.acc_magnitude_g > 2.5 ? "Severe Kinetic Flutter" : (comp.acc_magnitude_g > 0.8 ? "Motor Agitation" : "Stationary Baseline");
+        }
     }
     if (badgeLux && comp.calibrated_lux !== undefined) {
         badgeLux.innerText = `${comp.calibrated_lux} Lux`;
+        if (badgeLuxSub) {
+            badgeLuxSub.innerText = comp.calibrated_lux > 600 ? "Bright / Photophobia Zone" : (comp.calibrated_lux === 0 ? "Dark / Calibrated" : "Ambient Optimal");
+        }
+    }
+    if (badgeHr && comp.heart_rate_bpm !== undefined) {
+        badgeHr.innerText = `${Math.round(comp.heart_rate_bpm)} BPM`;
     }
 
-    // 2. Sync inferred heart rate to ECG canvas
+    // 4. Sync inferred heart rate to ECG canvas
     if (comp.heart_rate_bpm && window.visualizer) {
         window.visualizer.setBPM(comp.heart_rate_bpm);
         const hrDisp = document.getElementById("hrDisplay");
         if (hrDisp) hrDisp.innerText = `${Math.round(comp.heart_rate_bpm)} BPM`;
     }
 
-    // 3. Update right-column Diagnostic Hub
+    // 5. Update Inspector box
+    const inspAcc = document.getElementById("inspAccMag");
+    const inspLux = document.getElementById("inspLux");
+    const inspBuzzer = document.getElementById("inspBuzzer");
+    const inspLed = document.getElementById("inspLed");
+    const inspCompact = document.getElementById("inspCompactString");
+    const inspStorage = document.getElementById("inspectorStorageStatus");
+
+    const isCritical = alert.risk_level === "HIGH" || alert.risk_level === "CRITICAL";
+    const isMedium = alert.risk_level === "MEDIUM";
+
+    if (inspAcc) inspAcc.innerText = `${comp.acc_magnitude_g !== undefined ? comp.acc_magnitude_g : 0.0} g`;
+    if (inspLux) inspLux.innerText = `${comp.calibrated_lux !== undefined ? comp.calibrated_lux : 0.0} lux`;
+    if (inspStorage) {
+        inspStorage.innerText = record.storage_status || "SAVED_TO_MONGODB";
+        inspStorage.style.color = record.storage_status === "SAVED_TO_MONGODB" ? "var(--status-green)" : "var(--status-amber)";
+    }
+
+    if (inspBuzzer) {
+        inspBuzzer.innerText = isCritical ? "TRIGGERED (PIN 8 ON)" : "INACTIVE (0)";
+        inspBuzzer.style.color = isCritical ? "var(--status-red)" : "var(--status-green)";
+    }
+    if (inspLed) {
+        if (isCritical) {
+            inspLed.innerText = "ALERT FLASHING RED (PIN 13)";
+            inspLed.style.color = "var(--status-red)";
+        } else if (isMedium) {
+            inspLed.innerText = "AMBER CAUTION (PIN 13 PULSING)";
+            inspLed.style.color = "var(--status-amber)";
+        } else {
+            inspLed.innerText = "NORMAL GREEN (PIN 13 STEADY)";
+            inspLed.style.color = "var(--status-green)";
+        }
+    }
+    if (inspCompact) {
+        inspCompact.innerText = `Arduino Stream Response: PRED:${ml.predicted_class || 'Calm'} | CONF:${ml.confidence ? (ml.confidence * 100).toFixed(1) + '%' : '98%'} | RISK:${alert.risk_level || 'LOW'} | BUZZER:${isCritical ? 1 : 0} | DB:${record.storage_status === "SAVED_TO_MONGODB" ? "SAVED" : "BUFFER"}`;
+    }
+
+    // 6. Update right-column Diagnostic Hub
     displayPrediction({
         predicted_class: ml.predicted_class,
         class_id: ml.class_id,
@@ -209,20 +287,6 @@ function onNewTelemetryStreamReceived(record) {
             heart_rate_bpm: comp.heart_rate_bpm
         }
     });
-
-    // 4. Update Actuator feedback box
-    const buzzerStatus = document.getElementById("hubBuzzerStatus");
-    const ledStatus = document.getElementById("hubLedStatus");
-    const isCritical = alert.risk_level === "HIGH" || alert.risk_level === "CRITICAL";
-
-    if (buzzerStatus) {
-        buzzerStatus.innerText = isCritical ? "TRIGGERED (PIN 8 BUZZER ON)" : "INACTIVE (0)";
-        buzzerStatus.style.color = isCritical ? "var(--status-red)" : "var(--status-green)";
-    }
-    if (ledStatus) {
-        ledStatus.innerText = isCritical ? "ALERT FLASHING RED" : "NORMAL GREEN";
-        ledStatus.style.color = isCritical ? "var(--status-red)" : "var(--status-green)";
-    }
 }
 
 function toggleAutoSync() {

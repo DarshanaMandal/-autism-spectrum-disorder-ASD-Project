@@ -153,12 +153,116 @@
                             <div id="mongoConfigMsg" class="drawer-message"></div>
                         </div>
 
-                        <!-- Microcontroller Sensor Stream Input Bench -->
-                        <div class="sensor-stream-card">
+                        <!-- 1. LIVE INBOUND ARDUINO TELEMETRY FEED (AUTOMATIC) -->
+                        <div class="sensor-stream-card live-inbound-card" id="liveInboundCard">
                             <div class="sensor-bench-header">
                                 <div class="bench-label">
-                                    <span class="terminal-icon">📡</span>
-                                    <span>Microcontroller Serial Stream Input (Arduino Uno / ESP32 / Wearable Node):</span>
+                                    <span class="terminal-icon live-radar-icon">📡</span>
+                                    <span style="font-size: 1rem; color: #fff;">Live Inbound Hardware Telemetry (Auto-Listening from Arduino IDE / API)</span>
+                                </div>
+                                <div class="stream-status-badge" id="inboundFeedBadge">
+                                    <span class="radar-dot"></span>
+                                    <span id="inboundFeedText">Awaiting Inbound Arduino Stream...</span>
+                                </div>
+                            </div>
+                            <div class="inbound-meta-bar">
+                                <span>Last Stream Packet: <strong id="inboundLastTime" style="color: var(--primary-cyan); font-family: var(--font-mono);">Never</strong></span>
+                                <span class="dot-separator">&bull;</span>
+                                <span>Source Device: <strong id="inboundDeviceLabel" style="color: #fff; font-family: var(--font-mono);">wearable_node_uno_01</strong></span>
+                                <span class="dot-separator">&bull;</span>
+                                <span>Storage: <strong id="inboundStorageBadge" style="color: var(--status-green); font-family: var(--font-mono);">MONGODB CLUSTER</strong></span>
+                            </div>
+
+                            <!-- Live Telemetry Badges (Auto-Populated from Arduino / External API) -->
+                            <div class="live-sensor-badges-grid">
+                                <div class="telemetry-badge-card badge-ir" id="cardBadgeIr">
+                                    <div class="badge-header">
+                                        <span class="badge-icon">🔴</span>
+                                        <span class="badge-label">MAX30102 Optical IR</span>
+                                    </div>
+                                    <div class="badge-value" id="badgeIrStatus">IR: 0</div>
+                                    <div class="badge-sub" id="badgeIrSub">Skin Contact: Disengaged</div>
+                                </div>
+
+                                <div class="telemetry-badge-card badge-acc" id="cardBadgeAcc">
+                                    <div class="badge-header">
+                                        <span class="badge-icon">⚡</span>
+                                        <span class="badge-label">MPU6050 Acceleration</span>
+                                    </div>
+                                    <div class="badge-value" id="badgeAccStatus">0.00 g</div>
+                                    <div class="badge-sub" id="badgeAccSub">Stationary Baseline</div>
+                                </div>
+
+                                <div class="telemetry-badge-card badge-lux" id="cardBadgeLux">
+                                    <div class="badge-header">
+                                        <span class="badge-icon">💡</span>
+                                        <span class="badge-label">BH1750 Ambient Lux</span>
+                                    </div>
+                                    <div class="badge-value" id="badgeLuxStatus">0.00 Lux</div>
+                                    <div class="badge-sub" id="badgeLuxSub">Ambient Calibrated</div>
+                                </div>
+
+                                <div class="telemetry-badge-card badge-device" id="cardBadgeHr">
+                                    <div class="badge-header">
+                                        <span class="badge-icon">❤️</span>
+                                        <span class="badge-label">Inferred Heart Rate</span>
+                                    </div>
+                                    <div class="badge-value" id="badgeHrStatus" style="color: var(--status-green);">76 BPM</div>
+                                    <div class="badge-sub">Cardiac Rhythm: Resting</div>
+                                </div>
+                            </div>
+
+                            <!-- Live Actuator Return Signal Box (Sent back to Arduino) -->
+                            <div class="backend-response-inspector" id="backendInspector" style="display: flex;">
+                                <div class="inspector-header">
+                                    <span class="inspector-title">⚡ Live Actuator Feedback Transmitted to Arduino Uno:</span>
+                                    <span class="inspector-status" id="inspectorStorageStatus">SAVED_TO_MONGODB</span>
+                                </div>
+                                <div class="inspector-grid">
+                                    <div class="inspector-metric">
+                                        <span class="m-label">Computed Kinetic Accel:</span>
+                                        <strong class="m-val" id="inspAccMag">0.00 g</strong>
+                                    </div>
+                                    <div class="inspector-metric">
+                                        <span class="m-label">Calibrated Light:</span>
+                                        <strong class="m-val" id="inspLux">0.00 lux</strong>
+                                    </div>
+                                    <div class="inspector-metric">
+                                        <span class="m-label">Auditory Buzzer (Pin 8):</span>
+                                        <strong class="m-val" id="inspBuzzer" style="color: var(--status-green);">INACTIVE (0)</strong>
+                                    </div>
+                                    <div class="inspector-metric">
+                                        <span class="m-label">Visual Pin 13 LED:</span>
+                                        <strong class="m-val" id="inspLed" style="color: var(--status-green);">NORMAL GREEN</strong>
+                                    </div>
+                                </div>
+                                <div class="inspector-compact-code" id="inspCompactString">
+                                    Arduino Stream Response: PRED:Calm / Resting | CONF:98.5% | RISK:LOW | BUZZER:0 | DB:SAVED
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. ARDUINO IDE CONNECTION GUIDE CALLOUT -->
+                        <div class="arduino-guide-banner">
+                            <div class="guide-banner-header">
+                                <span style="font-weight: 700; color: var(--primary-cyan); font-size: 0.88rem;">🔌 Connecting your physical Arduino Uno from Arduino IDE:</span>
+                            </div>
+                            <div class="guide-banner-body">
+                                <span>1. Upload <code>arduino_uno_sensors.ino</code> from Arduino IDE to your board.</span><br>
+                                <span>2. Run the High-Speed Serial Bridge in a terminal:</span>
+                                <div class="code-snippet-inline">
+                                    <code>python3 MultiSense/hardware/serial_bridge.py --cloud</code>
+                                </div>
+                                <span style="font-size: 0.76rem; color: var(--text-dim);">(It automatically reads USB serial, forwards readings to the backend API, and streams live into this dashboard!)</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. MANUAL TESTING BENCH (TEST PRESETS & CUSTOM STRINGS) -->
+                        <div class="sensor-stream-card manual-bench-card">
+                            <div class="sensor-bench-header">
+                                <div class="bench-label">
+                                    <span class="terminal-icon">📋</span>
+                                    <span>Manual Stream Tester & Diagnostics Bench (Simulate Without Hardware):</span>
                                 </div>
                                 <div class="bench-presets">
                                     <span class="preset-label">Test Presets:</span>
@@ -183,87 +287,23 @@
                                     <span class="term-dot red"></span>
                                     <span class="term-dot yellow"></span>
                                     <span class="term-dot green"></span>
-                                    <span class="term-title">COM /dev/tty.usbmodem (115200 baud)</span>
+                                    <span class="term-title">Microcontroller Stream Payload: IR: ... \n ACC: ... \n Light: ...</span>
                                 </div>
-                                <textarea id="rawSensorTextInput" rows="4" class="sensor-terminal-input" placeholder="IR: 0&#10;ACC: 0, 0, 0&#10;Light: -2.00 lux">IR: 0
+                                <textarea id="rawSensorTextInput" rows="3" class="sensor-terminal-input" placeholder="IR: 0&#10;ACC: 0, 0, 0&#10;Light: -2.00 lux">IR: 0
 ACC: 0, 0, 0
 Light: -2.00 lux</textarea>
                             </div>
 
-                            <!-- Live Telemetry Badges (Instant Dynamic Computation) -->
-                            <div class="live-sensor-badges-grid">
-                                <div class="telemetry-badge-card badge-ir">
-                                    <div class="badge-header">
-                                        <span class="badge-icon">🔴</span>
-                                        <span class="badge-label">MAX30102 Optical IR</span>
-                                    </div>
-                                    <div class="badge-value" id="badgeIrStatus">IR: 0</div>
-                                    <div class="badge-sub" id="badgeIrSub">Skin Contact: Disengaged</div>
+                            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.3); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                                    <span style="font-size: 0.76rem; color: var(--text-muted);">Device Node ID:</span>
+                                    <input type="text" id="sensorDeviceId" value="wearable_node_uno_01" style="background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 600; width: 170px;">
                                 </div>
 
-                                <div class="telemetry-badge-card badge-acc">
-                                    <div class="badge-header">
-                                        <span class="badge-icon">⚡</span>
-                                        <span class="badge-label">MPU6050 Acceleration</span>
-                                    </div>
-                                    <div class="badge-value" id="badgeAccStatus">0.00 g</div>
-                                    <div class="badge-sub" id="badgeAccSub">Stationary Baseline</div>
-                                </div>
-
-                                <div class="telemetry-badge-card badge-lux">
-                                    <div class="badge-header">
-                                        <span class="badge-icon">💡</span>
-                                        <span class="badge-label">BH1750 Ambient Lux</span>
-                                    </div>
-                                    <div class="badge-value" id="badgeLuxStatus">0.00 Lux</div>
-                                    <div class="badge-sub" id="badgeLuxSub">Ambient Calibrated</div>
-                                </div>
-
-                                <div class="telemetry-badge-card badge-device">
-                                    <div class="badge-header">
-                                        <span class="badge-icon">🏷️</span>
-                                        <span class="badge-label">Device Node ID</span>
-                                    </div>
-                                    <input type="text" id="sensorDeviceId" value="wearable_node_uno_01" class="device-input">
-                                    <div class="badge-sub">Protocol: MultiSense v1.0</div>
-                                </div>
-                            </div>
-
-                            <!-- Action Ingest Button -->
-                            <div class="ingest-action-row">
-                                <button type="button" class="btn-primary btn-large" id="btnSendSensorToMlAndDb" onclick="executeSensorStreamInference()">
+                                <button type="button" class="btn-primary" id="btnSendSensorToMlAndDb" onclick="executeSensorStreamInference()" style="flex: 1; padding: 0.75rem 1.25rem;">
                                     <span>🚀</span>
-                                    <span>Send to Multimodal AI Classifier & Save to MongoDB</span>
+                                    <span>Manually Ingest Payload & Test ML Prediction</span>
                                 </button>
-                            </div>
-
-                            <!-- Backend Output & Actuator Response Inspector -->
-                            <div class="backend-response-inspector" id="backendInspector" style="display: none;">
-                                <div class="inspector-header">
-                                    <span class="inspector-title">⚡ Real-Time Backend Response & Hardware Actuators:</span>
-                                    <span class="inspector-status" id="inspectorStorageStatus">SAVED_TO_MONGODB</span>
-                                </div>
-                                <div class="inspector-grid">
-                                    <div class="inspector-metric">
-                                        <span class="m-label">Computed Accel:</span>
-                                        <strong class="m-val" id="inspAccMag">-</strong>
-                                    </div>
-                                    <div class="inspector-metric">
-                                        <span class="m-label">Calibrated Light:</span>
-                                        <strong class="m-val" id="inspLux">-</strong>
-                                    </div>
-                                    <div class="inspector-metric">
-                                        <span class="m-label">Inferred HR:</span>
-                                        <strong class="m-val" id="inspHr">-</strong>
-                                    </div>
-                                    <div class="inspector-metric">
-                                        <span class="m-label">Arduino Pin 8 (Buzzer):</span>
-                                        <strong class="m-val" id="inspBuzzer">OFF</strong>
-                                    </div>
-                                </div>
-                                <div class="inspector-compact-code" id="inspCompactString">
-                                    Arduino Stream Response: PRED:ArmFlapping | CONF:0.96 | RISK:MEDIUM | BUZZER:0 | DB:SAVED
-                                </div>
                             </div>
                         </div>
 
