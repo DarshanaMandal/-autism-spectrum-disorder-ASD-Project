@@ -735,11 +735,12 @@ Light: -2.00 lux</textarea>
             <div class="quick-preset-bar">
                 <span class="quick-label">Quick Switch:</span>
                 <button type="button" class="preset-chip" onclick="setApiPreset('http://127.0.0.1:8000')">Localhost (Port 8000)</button>
+                <button type="button" class="preset-chip" onclick="setApiPreset('https://multisense-ai-pslv.onrender.com')">Render Cloud (multisense-ai-pslv)</button>
                 <button type="button" class="preset-chip" onclick="setApiPreset(window.location.origin)">Current Domain</button>
             </div>
 
             <label class="modal-input-label">FastAPI Base URL:</label>
-            <input type="text" id="customApiInput" placeholder="http://127.0.0.1:8000 or https://multisense-clinical-ai.onrender.com" class="code-input">
+            <input type="text" id="customApiInput" placeholder="https://multisense-ai-pslv.onrender.com" class="code-input">
 
             <div class="connection-test-result" id="connectionTestResult"></div>
 

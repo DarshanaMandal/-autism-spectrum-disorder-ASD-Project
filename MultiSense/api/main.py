@@ -81,16 +81,16 @@ if (FRONTEND_DIR / "samples").exists():
     app.mount("/samples", StaticFiles(directory=str(FRONTEND_DIR / "samples")), name="samples")
 
 
-@app.get("/", tags=["User Interface"])
+@app.api_route("/", methods=["GET", "HEAD"], tags=["User Interface"])
 async def root_dashboard():
-    """Serves the MultiSense interactive clinical web dashboard."""
+    """Serves the MultiSense interactive clinical web dashboard (Supports GET and HEAD for UptimeRobot)."""
     index_file = FRONTEND_DIR / "index.html"
     if index_file.exists():
         return FileResponse(index_file)
     return {"message": "Frontend index.html not found"}
 
 
-@app.get("/dashboard", tags=["User Interface"])
+@app.api_route("/dashboard", methods=["GET", "HEAD"], tags=["User Interface"])
 async def dashboard_redirect():
     """Alternative route for the interactive clinical dashboard."""
     index_file = FRONTEND_DIR / "index.html"
@@ -99,27 +99,32 @@ async def dashboard_redirect():
     return {"message": "Frontend index.html not found"}
 
 
-@app.get("/api/info", tags=["System Information"])
-async def api_info():
-    """API metadata, loaded models, and target classes."""
-    return {
-        "title": "MultiSense ASD Stimming Detection & Biomechanical Pose API",
-        "status": "online",
-        "version": "1.0.0",
-        "documentation": "/docs",
-        "interactive_dashboard": "/",
-        "models_available": [
-            "Baseline RF (84.65% Accuracy)",
-            "GAN-Augmented RF (87.98% Accuracy, +5.67% ArmFlapping Recall)",
-            "Multimodal Fusion RF (97.44% Accuracy, Video + PPG + IMU + Lux)"
-        ],
-        "target_behaviors": ["ArmFlapping", "HeadBanging", "Spinning"]
-    }
+@app.api_route("/ping", methods=["GET", "HEAD"], tags=["System Information"])
+@app.api_route("/api/ping", methods=["GET", "HEAD"], tags=["System Information"])
+async def uptime_robot_ping():
+    """
+    Dedicated ultra-lightweight ping endpoint for UptimeRobot / cron keep-alive monitors.
+    Supports both GET and HEAD methods with zero overhead to keep Render services awake 24/7.
+    """
+    from datetime import datetime, timezone
+    return JSONResponse(
+        content={
+            "status": "ok",
+            "uptime_robot": "active",
+            "service": "multisense-clinical-ai",
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        },
+        headers={
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        }
+    )
 
 
-@app.get("/health", response_model=HealthResponse, tags=["System Information"])
+@app.api_route("/health", methods=["GET", "HEAD"], response_model=HealthResponse, tags=["System Information"])
 async def health_check():
-    """Service health verification endpoint."""
+    """Service health verification endpoint (Supports GET and HEAD)."""
     loaded = []
     if inference.manager.baseline_rf is not None:
         loaded.append("Baseline RF")
@@ -447,6 +452,7 @@ async def get_sensor_history(limit: int = Query(50, ge=1, le=500, description="M
 
 
 @app.get("/api/db-status", response_model=DatabaseStatusResponse, tags=["Sensor Telemetry & Database"])
+@app.get("/api/mongo-status", response_model=DatabaseStatusResponse, tags=["Sensor Telemetry & Database"])
 async def get_database_status():
     """
     Returns current connection status to MongoDB Atlas / local database.
@@ -456,11 +462,12 @@ async def get_database_status():
 
 
 @app.post("/api/db-configure", tags=["Sensor Telemetry & Database"])
+@app.post("/api/mongo-config", tags=["Sensor Telemetry & Database"])
 async def configure_database(payload: Dict[str, Any]):
     """
     Dynamically update or test MONGODB_URI at runtime without restarting server.
     """
-    uri = payload.get("mongodb_uri", "").strip()
+    uri = (payload.get("mongodb_uri") or payload.get("uri") or "").strip()
     db_name = payload.get("db_name", "").strip()
     coll_name = payload.get("collection", "").strip()
 
