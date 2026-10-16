@@ -651,9 +651,9 @@ Light: -2.00 lux</textarea>
 
                     <!-- Main Classification Readout Badge -->
                     <div class="classification-display" id="classificationDisplayBox">
-                        <div id="diagnosticBadge" class="classification-badge badge-arm">ArmFlapping</div>
+                        <div id="diagnosticBadge" class="classification-badge badge-calm">Calm / Resting</div>
                         <div class="confidence-readout">
-                            Diagnostic Confidence: <strong id="confidenceReadout">89.4%</strong>
+                            Diagnostic Confidence: <strong id="confidenceReadout">98.5%</strong>
                         </div>
                     </div>
 
@@ -662,44 +662,44 @@ Light: -2.00 lux</textarea>
                         <div class="prob-entry">
                             <div class="prob-header">
                                 <span>Arm Flapping (Motor Agitation)</span>
-                                <span id="probArm" class="prob-percent color-amber">89.4%</span>
+                                <span id="probArm" class="prob-percent color-amber">0.8%</span>
                             </div>
                             <div class="prob-bar-rail">
-                                <div class="prob-bar-fill fill-amber" id="fillArm" style="width: 89.4%;"></div>
+                                <div class="prob-bar-fill fill-amber" id="fillArm" style="width: 0.8%;"></div>
                             </div>
                         </div>
 
                         <div class="prob-entry">
                             <div class="prob-header">
                                 <span>Head Banging (Self-Injurious SIB)</span>
-                                <span id="probHead" class="prob-percent color-red">6.2%</span>
+                                <span id="probHead" class="prob-percent color-red">0.3%</span>
                             </div>
                             <div class="prob-bar-rail">
-                                <div class="prob-bar-fill fill-red" id="fillHead" style="width: 6.2%;"></div>
+                                <div class="prob-bar-fill fill-red" id="fillHead" style="width: 0.3%;"></div>
                             </div>
                         </div>
 
                         <div class="prob-entry">
                             <div class="prob-header">
                                 <span>Spinning (Vestibular Seeking)</span>
-                                <span id="probSpin" class="prob-percent color-cyan">4.4%</span>
+                                <span id="probSpin" class="prob-percent color-cyan">0.4%</span>
                             </div>
                             <div class="prob-bar-rail">
-                                <div class="prob-bar-fill fill-cyan" id="fillSpin" style="width: 4.4%;"></div>
+                                <div class="prob-bar-fill fill-cyan" id="fillSpin" style="width: 0.4%;"></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Clinical Risk & Caregiver Action Alert Card -->
-                    <div class="alert-card" id="clinicalAlertCard">
+                    <div class="alert-card" id="clinicalAlertCard" style="border-left-color: var(--status-green); background: rgba(16, 185, 129, 0.08);">
                         <div class="alert-title" id="alertTitle">
-                            ⚠️ MEDIUM RISK: Motor Agitation & Sensory Overflow
+                            <span style="color: var(--status-green);">✅ LOW RISK:</span> Normal Baseline / Resting State
                         </div>
                         <p class="alert-desc" id="alertDesc">
-                            Rapid bilateral wrist/arm flutter detected. Often represents emotional dysregulation or sensory excitement.
+                            No repetitive motor stimming detected. Kinetic acceleration is at resting baseline (0.00g).
                         </p>
                         <div class="alert-action" id="alertAction">
-                            <strong>Caregiver Action:</strong> Offer sensory decompression tools (weighted lap pad, sensory compression vest, or fidgets).
+                            <strong>Caregiver Action:</strong> NORMAL: Patient is calm or wearable is in resting standby. Maintain standard comfortable environment.
                         </div>
                     </div>
 

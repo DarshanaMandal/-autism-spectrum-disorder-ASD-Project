@@ -537,6 +537,12 @@ async function refreshSensorHistory() {
             return;
         }
 
+        // On initial page load or refresh, immediately sync Diagnostic Hub to the latest database record!
+        if (!lastKnownRecordId && records.length > 0) {
+            lastKnownRecordId = records[0]._id || records[0].timestamp;
+            onNewTelemetryStreamReceived(records[0]);
+        }
+
         tbody.innerHTML = records.map((r, idx) => {
             const timeStr = new Date(r.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             const s = r.input_sensors || {};
@@ -1070,6 +1076,7 @@ function displayPrediction(data) {
         if (predClass === "ArmFlapping") badge.classList.add("badge-arm");
         else if (predClass === "HeadBanging") badge.classList.add("badge-head");
         else if (predClass === "Spinning") badge.classList.add("badge-spin");
+        else badge.classList.add("badge-calm");
     }
 
     if (conf) conf.innerText = `${confidencePct.toFixed(1)}%`;
@@ -1110,9 +1117,35 @@ function displayPrediction(data) {
         if (riskLevel === "HIGH" || riskLevel === "CRITICAL") {
             hubCard.style.boxShadow = "0 0 35px rgba(239, 68, 68, 0.4)";
             hubCard.style.borderColor = "rgba(239, 68, 68, 0.6)";
+        } else if (riskLevel === "MEDIUM") {
+            hubCard.style.boxShadow = "0 0 20px rgba(245, 158, 11, 0.25)";
+            hubCard.style.borderColor = "rgba(245, 158, 11, 0.4)";
         } else {
             hubCard.style.boxShadow = "var(--shadow-card)";
             hubCard.style.borderColor = "var(--border-subtle)";
+        }
+    }
+
+    // Synchronize Hardware Actuator Feedback Box (Buzzer & Pin 13 LED)
+    const buzzerStatus = document.getElementById("hubBuzzerStatus");
+    const ledStatus = document.getElementById("hubLedStatus");
+    const isCritical = riskLevel === "HIGH" || riskLevel === "CRITICAL";
+    const isMedium = riskLevel === "MEDIUM";
+
+    if (buzzerStatus) {
+        buzzerStatus.innerText = isCritical ? "TRIGGERED (PIN 8 BUZZER ON)" : "INACTIVE (0)";
+        buzzerStatus.style.color = isCritical ? "var(--status-red)" : "var(--status-green)";
+    }
+    if (ledStatus) {
+        if (isCritical) {
+            ledStatus.innerText = "ALERT FLASHING RED (PIN 13)";
+            ledStatus.style.color = "var(--status-red)";
+        } else if (isMedium) {
+            ledStatus.innerText = "AMBER CAUTION (PIN 13 PULSING)";
+            ledStatus.style.color = "var(--status-amber)";
+        } else {
+            ledStatus.innerText = "NORMAL GREEN (PIN 13 STEADY)";
+            ledStatus.style.color = "var(--status-green)";
         }
     }
 }
