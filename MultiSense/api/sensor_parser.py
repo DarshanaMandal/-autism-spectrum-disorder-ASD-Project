@@ -99,9 +99,15 @@ def process_sensor_input(payload: RawSensorInput) -> Tuple[Dict[str, Any], Dict[
     acc_mag = math.sqrt(raw_ax**2 + raw_ay**2 + raw_az**2)
     # If acceleration is given in m/s^2 (e.g. ~9.81), convert to g
     if acc_mag > 6.0 and abs(acc_mag - 9.81) < 4.0:
-        acc_mag_g = round(acc_mag / 9.80665, 4)
+        raw_mag_g = round(acc_mag / 9.80665, 4)
     else:
-        acc_mag_g = round(acc_mag, 4)
+        raw_mag_g = round(acc_mag, 4)
+
+    # Dynamic kinetic acceleration (removes 1.0g static gravity bias if present)
+    if raw_mag_g >= 0.5:
+        acc_mag_g = round(abs(raw_mag_g - 1.0), 4)
+    else:
+        acc_mag_g = raw_mag_g
 
     # 2. Ambient Light Calibration (Clamp negative sensor noise/offset to 0.0 lux)
     calibrated_lux = max(0.0, round(raw_light, 2))
@@ -146,12 +152,12 @@ def process_sensor_input(payload: RawSensorInput) -> Tuple[Dict[str, Any], Dict[
     }
 
     # Synthesize 17 kinematic parameters consistent with wearable motion
-    # High acceleration maps to higher movement intensity and velocities
-    intensity = min(1.0, max(0.05, acc_mag_g / 4.0))
-    wrist_vel = round(0.10 + (intensity * 0.70), 4)
-    head_vel = round(0.08 + (intensity * 0.45), 4)
-    head_pitch_var = round(0.02 + (intensity * 0.25), 4)
-    ang_vel = round(0.05 + (intensity * 0.15), 4)
+    # Low dynamic acceleration maps to resting calm state (< 0.25 velocity)
+    intensity = min(1.0, max(0.02, acc_mag_g / 3.0))
+    wrist_vel = round(0.08 + (intensity * 0.65), 4)
+    head_vel = round(0.06 + (intensity * 0.40), 4)
+    head_pitch_var = round(0.01 + (intensity * 0.20), 4)
+    ang_vel = round(0.03 + (intensity * 0.12), 4)
 
     multimodal_features = {
         # 17 Kinematic features

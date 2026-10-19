@@ -137,11 +137,12 @@ class DatabaseManager:
             else:
                 masked_uri = "mongodb://configured"
 
+        coll = self.get_collection()
         total_records = len(MEMORY_TELEMETRY_BUFFER)
         db_records = 0
-        if self._is_connected and self.collection is not None:
+        if coll is not None:
             try:
-                db_records = self.collection.count_documents({})
+                db_records = coll.count_documents({})
                 total_records = db_records
             except Exception:
                 pass
@@ -214,9 +215,10 @@ class DatabaseManager:
 
     def get_history(self, limit: int = 50) -> List[Dict[str, Any]]:
         """Retrieves recent sensor telemetry records."""
-        if self._is_connected and self.collection is not None:
+        coll = self.get_collection()
+        if coll is not None:
             try:
-                cursor = self.collection.find({}).sort("timestamp", -1).limit(limit)
+                cursor = coll.find({}).sort("timestamp", -1).limit(limit)
                 records = []
                 for item in cursor:
                     item["_id"] = str(item.get("_id"))
