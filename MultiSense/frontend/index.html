@@ -20,8 +20,11 @@
                     <span class="icon-pulse">🧬</span>
                 </div>
                 <div class="brand-text">
-                    <h1>MultiSense Clinical Portal</h1>
-                    <p>Multimodal ASD Stimming Detection &bull; Pose Kinematics &bull; Wearable Sensor Telemetry</p>
+                    <div class="brand-title-row">
+                        <h1>MultiSense Clinical Portal</h1>
+                        <span class="brand-ai-chip">97.44% ACCURACY &bull; CLINICAL GRADE</span>
+                    </div>
+                    <p>Multimodal ASD Stimming Detection &bull; Biomechanical Pose Kinematics &bull; Live Wearable Telemetry</p>
                 </div>
             </div>
 
@@ -177,38 +180,64 @@
                             <div class="live-sensor-badges-grid">
                                 <div class="telemetry-badge-card badge-ir" id="cardBadgeIr">
                                     <div class="badge-header">
-                                        <span class="badge-icon">🔴</span>
-                                        <span class="badge-label">MAX30102 Optical IR</span>
+                                        <div class="badge-title-group">
+                                            <span class="badge-icon">🔴</span>
+                                            <span class="badge-label">MAX30102 Optical IR</span>
+                                        </div>
+                                        <span class="card-chip chip-ir">PPG OPTICAL</span>
                                     </div>
                                     <div class="badge-value" id="badgeIrStatus">IR: 0</div>
                                     <div class="badge-sub" id="badgeIrSub">Skin Contact: Disengaged</div>
+                                    <div class="badge-meter-rail">
+                                        <div class="badge-meter-fill fill-ir" style="width: 28%;"></div>
+                                    </div>
                                 </div>
 
                                 <div class="telemetry-badge-card badge-acc" id="cardBadgeAcc">
                                     <div class="badge-header">
-                                        <span class="badge-icon">⚡</span>
-                                        <span class="badge-label">MPU6050 Acceleration</span>
+                                        <div class="badge-title-group">
+                                            <span class="badge-icon">⚡</span>
+                                            <span class="badge-label">MPU6050 Motion 3D</span>
+                                        </div>
+                                        <span class="card-chip chip-acc">6-DOF IMU</span>
                                     </div>
                                     <div class="badge-value" id="badgeAccStatus">0.00 g</div>
                                     <div class="badge-sub" id="badgeAccSub">Stationary Baseline</div>
+                                    <div class="badge-meter-rail">
+                                        <div class="badge-meter-fill fill-acc" style="width: 15%;"></div>
+                                    </div>
                                 </div>
 
                                 <div class="telemetry-badge-card badge-lux" id="cardBadgeLux">
                                     <div class="badge-header">
-                                        <span class="badge-icon">💡</span>
-                                        <span class="badge-label">BH1750 Ambient Lux</span>
+                                        <div class="badge-title-group">
+                                            <span class="badge-icon">💡</span>
+                                            <span class="badge-label">BH1750 Ambient Lux</span>
+                                        </div>
+                                        <span class="card-chip chip-lux">PHOTOMETRIC</span>
                                     </div>
                                     <div class="badge-value" id="badgeLuxStatus">0.00 Lux</div>
                                     <div class="badge-sub" id="badgeLuxSub">Ambient Calibrated</div>
+                                    <div class="badge-meter-rail">
+                                        <div class="badge-meter-fill fill-lux" style="width: 45%;"></div>
+                                    </div>
                                 </div>
 
                                 <div class="telemetry-badge-card badge-device" id="cardBadgeHr">
                                     <div class="badge-header">
-                                        <span class="badge-icon">❤️</span>
-                                        <span class="badge-label">Inferred Heart Rate</span>
+                                        <div class="badge-title-group">
+                                            <span class="badge-icon">❤️</span>
+                                            <span class="badge-label">Inferred Heart Rate</span>
+                                        </div>
+                                        <span class="card-chip chip-hr">CARDIAC PULSE</span>
                                     </div>
                                     <div class="badge-value" id="badgeHrStatus" style="color: var(--status-green);">76 BPM</div>
                                     <div class="badge-sub">Cardiac Rhythm: Resting</div>
+                                    <div class="ecg-pulse-wrapper">
+                                        <svg class="ecg-svg" viewBox="0 0 200 36" preserveAspectRatio="none">
+                                            <path class="ecg-line" d="M0,18 L32,18 L37,10 L42,26 L47,4 L54,32 L60,14 L66,18 L112,18 L117,10 L122,26 L127,4 L134,32 L140,14 L146,18 L200,18" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
 
